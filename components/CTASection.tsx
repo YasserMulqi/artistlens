@@ -1,0 +1,2 @@
+import Link from 'next/link'
+export default function CTASection(){return(<section className="py-32 bg-[#0a0a0a]"><div className="max-w-7xl mx-auto px-6"><div className="flex flex-col md:flex-row items-center justify-between gap-8 border border-white/10 p-12 md:p-16"><div><p className="text-gold text-xs tracking-[0.3em] uppercase mb-3">Ready?</p><h2 className="font-serif text-3xl md:text-4xl text-white">Let&apos;s Create Something Amazing</h2></div><Link href="/contact" className="btn-gold whitespace-nowrap flex-shrink-0">Start a Project</Link></div></div></section>)}

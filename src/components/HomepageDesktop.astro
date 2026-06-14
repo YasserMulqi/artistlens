@@ -1,0 +1,138 @@
+---
+import MotionWord from './MotionWord.astro';
+import { homepage } from '../data/homepage';
+---
+
+<div class="home-page">
+  <section class="home-hero" aria-labelledby="home-hero-title">
+    <div class="home-hero__media" aria-hidden="true">
+      <img src={homepage.hero.image} alt="" />
+    </div>
+    <div class="home-hero__content">
+      <p class="eyebrow">{homepage.hero.kicker}</p>
+      <h1 id="home-hero-title">{homepage.hero.title}</h1>
+      <p class="home-hero__summary">{homepage.hero.summary}</p>
+      <div class="home-hero__tags" aria-label="Specialties">
+        {
+          homepage.hero.tags.map((tag) =>
+            tag === 'Motion' ? (
+              <span class="home-tag">
+                <MotionWord />
+              </span>
+            ) : (
+              <span class="home-tag">{tag}</span>
+            )
+          )
+        }
+      </div>
+      <div class="home-actions">
+        <a class="button button--primary" href="#contact">{homepage.hero.primaryCta}</a>
+        <a class="button button--ghost" href="#projects">{homepage.hero.secondaryCta}</a>
+      </div>
+    </div>
+    <div class="home-hero__caption">
+      <span>Selected direction</span>
+      <strong>Dark cinematic product atmosphere</strong>
+    </div>
+  </section>
+
+  <section id="projects" class="home-section home-section--projects" aria-labelledby="projects-title">
+    <div class="section-heading">
+      <p class="eyebrow">Selected Projects</p>
+      <h2 id="projects-title">A horizontal rhythm for selected work.</h2>
+    </div>
+    <div class="project-track" aria-label="Selected projects">
+      {
+        homepage.projects.map((project) => (
+          <a class="featured-project" href={project.href}>
+            <img src={project.image} alt="" loading="lazy" />
+            <div class="featured-project__body">
+              <span>{project.number}</span>
+              <p>{project.category}</p>
+              <h3>{project.title}</h3>
+              <p>{project.summary}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="frames" class="home-section frames-section" aria-labelledby="frames-title">
+    <div class="section-heading section-heading--split">
+      <div>
+        <p class="eyebrow">Selected Frames</p>
+        <h2 id="frames-title">Stacked frames, held in deep shadow.</h2>
+      </div>
+      <p>
+        A first-pass desktop structure for the approved stacked-scroll idea. Final scroll choreography
+        can be layered in once the image set is locked.
+      </p>
+    </div>
+    <div class="frame-stack">
+      {
+        homepage.frames.map((frame) => (
+          <figure class="frame-card">
+            <img src={frame.image} alt="" loading="lazy" />
+            <figcaption>
+              <span>{frame.label}</span>
+              <strong>{frame.title}</strong>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="services" class="home-section services-section" aria-labelledby="services-title">
+    <div class="section-heading">
+      <p class="eyebrow">Services / What I Shoot</p>
+      <h2 id="services-title">Specialties, not separate destinations.</h2>
+    </div>
+    <div class="service-grid">
+      {
+        homepage.services.map((service) => (
+          <article class="service-item">
+            <h3>{service.title === 'Motion' ? <MotionWord /> : service.title}</h3>
+            <p>{service.summary}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="motion" class="home-section motion-highlight" aria-labelledby="motion-title">
+    <div class="motion-highlight__copy">
+      <p class="eyebrow">{homepage.motion.eyebrow}</p>
+      <h2 id="motion-title">
+        <MotionWord /> that feels cut from the same visual world.
+      </h2>
+      <p>{homepage.motion.summary}</p>
+      <button class="reel-button" type="button" aria-label="Motion reel placeholder">
+        <span class="reel-button__icon" aria-hidden="true"></span>
+        Reel placeholder
+      </button>
+    </div>
+    <div class="motion-highlight__media">
+      <img src={homepage.motion.image} alt="" loading="lazy" />
+    </div>
+  </section>
+
+  <section id="about" class="home-section about-section" aria-labelledby="about-title">
+    <p class="eyebrow">{homepage.about.eyebrow}</p>
+    <div class="about-section__grid">
+      <h2 id="about-title">{homepage.about.title}</h2>
+      <div>
+        <img class="about-section__portrait" src={homepage.about.image} alt="Yasser Al-Mulqi" loading="lazy" />
+        <p>{homepage.about.body}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section" aria-labelledby="contact-title">
+    <p class="eyebrow">{homepage.contact.eyebrow}</p>
+    <h2 id="contact-title">{homepage.contact.title}</h2>
+    <p>{homepage.contact.summary}</p>
+    <a class="button button--primary" href={`mailto:${homepage.contact.email}`}>{homepage.contact.email}</a>
+  </section>
+</div>

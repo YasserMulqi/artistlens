@@ -9,13 +9,33 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const isEnglish = lang === 'en';
 ---
 
 <header class="site-header">
-  <a class="brand" href={localizedPath(lang, '/')}>{SITE.name}</a>
+  <a class="brand" href={localizedPath(lang, '/')} aria-label="ArtistLens home">
+    <span class="brand-artist">ARTIST</span><span class="brand-lens">LENS</span>
+  </a>
   <nav>
-    <a href={localizedPath(lang, '/')}>{t('nav.home')}</a>
-    <a href={localizedPath(lang, '/#work')}>{t('nav.projects')}</a>
+    {
+      isEnglish ? (
+        <>
+          <a href="/#projects">Projects</a>
+          <a href="/#services">Services</a>
+          <a class="nav-motion" href="/#motion">
+            <span>Motion</span><span class="motion-play" aria-hidden="true"></span>
+          </a>
+          <a href="/#about">About</a>
+          <a href="/#contact">Contact</a>
+          <a class="nav-cta" href="/#contact">Start a Project</a>
+        </>
+      ) : (
+        <>
+          <a href={localizedPath(lang, '/')}>{t('nav.home')}</a>
+          <a href={localizedPath(lang, '/#work')}>{t('nav.projects')}</a>
+        </>
+      )
+    }
     <LangSwitch lang={lang} />
   </nav>
 </header>

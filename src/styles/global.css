@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Arian LT';
@@ -315,6 +315,7 @@ h3 {
   position: absolute;
   inset-block-start: 42px;
   inset-inline: 0;
+  z-index: 1000;
   height: 97px;
   padding: 0 120px;
   border: 0;
@@ -341,7 +342,7 @@ h3 {
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: 0;
+  border-radius: 999px;
   padding: 0 20px;
   background: var(--color-accent);
   color: var(--color-bg);
@@ -367,8 +368,8 @@ h3 {
   color: var(--color-accent);
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0;
-  line-height: 16px;
+  letter-spacing: 2.08px;
+  line-height: 15.732954px;
   text-transform: uppercase;
 }
 
@@ -378,7 +379,7 @@ h3 {
   justify-content: center;
   height: 52px;
   border: 0;
-  border-radius: 0;
+  border-radius: 999px;
   padding: 0 28px;
   font-size: 15px;
   font-weight: 600;
@@ -391,6 +392,7 @@ h3 {
 }
 
 .button--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--color-text);
   background: transparent;
 }
@@ -425,6 +427,7 @@ h3 {
 .home-hero__media {
   position: absolute;
   inset: 0;
+  z-index: 0;
 }
 
 .home-hero__media::before,
@@ -459,6 +462,7 @@ h3 {
   position: absolute;
   inset-block-start: 176px;
   inset-inline-start: 120px;
+  z-index: 2;
   width: 600px;
 }
 
@@ -502,6 +506,8 @@ h3 {
   display: inline-flex;
   align-items: center;
   height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
   padding: 0 16px;
   background: rgba(255, 255, 255, 0.04);
   color: rgba(242, 239, 233, 0.85);
@@ -513,6 +519,7 @@ h3 {
   position: absolute;
   inset-block-start: 940px;
   inset-inline-start: 120px;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -566,7 +573,9 @@ h3 {
 
 .projects-heading h2 {
   font-size: 66px;
-  line-height: 69px;
+  font-weight: 300;
+  line-height: 68.64px;
+  letter-spacing: 0;
 }
 
 .projects-rail {

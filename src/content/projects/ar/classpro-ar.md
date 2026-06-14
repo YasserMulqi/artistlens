@@ -1,7 +1,7 @@
 ---
 title: "كلاس برو"
 slug: "classpro"
-lang: "ar"
+language: "ar"
 client: "ClassPRO"
 year: 2025
 category: "تصوير المنتجات ثلاثي الأبعاد"

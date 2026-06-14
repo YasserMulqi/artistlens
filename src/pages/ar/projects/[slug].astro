@@ -6,7 +6,7 @@ import { useTranslations } from '../../../i18n/ui';
 export async function getStaticPaths() {
   const projects = await getCollection(
     'projects',
-    (p) => p.data.lang === 'ar' && !p.data.draft
+    (p) => p.data.language === 'ar' && !p.data.draft
   );
   return projects.map((project) => ({
     params: { slug: project.data.slug },

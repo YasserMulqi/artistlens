@@ -1,7 +1,7 @@
 ---
 title: "ClassPRO"
 slug: "classpro"
-lang: "en"
+language: "en"
 client: "ClassPRO"
 year: 2025
 category: "Product Visualization"

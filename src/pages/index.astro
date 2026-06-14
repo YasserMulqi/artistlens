@@ -9,7 +9,7 @@ const lang = 'en';
 const t = useTranslations(lang);
 
 const projects = (
-  await getCollection('projects', (p) => p.data.lang === lang && !p.data.draft)
+  await getCollection('projects', (p) => p.data.language === lang && !p.data.draft)
 ).sort((a, b) => a.data.order - b.data.order);
 ---
 

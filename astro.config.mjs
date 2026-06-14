@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
-// ArtistLens — static output (no SSR adapter needed for Cloudflare Pages).
-// i18n: English is the default locale served at "/", Arabic served at "/ar".
+// ArtistLens — static site (output: 'static'), no SSR adapter required.
+// Deploys to Cloudflare Pages with: build command `npm run build`, output `dist`.
 export default defineConfig({
   site: 'https://artistlens.pages.dev',
   output: 'static',

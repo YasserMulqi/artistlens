@@ -1,0 +1,21 @@
+---
+import { useTranslations, localizedPath, type Lang } from '../i18n/ui';
+import { SITE } from '../consts';
+import LangSwitch from './LangSwitch.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header class="site-header">
+  <a class="brand" href={localizedPath(lang, '/')}>{SITE.name}</a>
+  <nav>
+    <a href={localizedPath(lang, '/')}>{t('nav.home')}</a>
+    <a href={localizedPath(lang, '/#work')}>{t('nav.projects')}</a>
+    <LangSwitch lang={lang} />
+  </nav>
+</header>

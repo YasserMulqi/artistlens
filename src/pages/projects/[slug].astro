@@ -1,0 +1,49 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  const projects = await getCollection(
+    'projects',
+    (p) => p.data.lang === 'en' && !p.data.draft
+  );
+  return projects.map((project) => ({
+    params: { slug: project.data.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const lang = 'en';
+const t = useTranslations(lang);
+const { title, summary, client, year, category, gallery } = project.data;
+---
+
+<BaseLayout title={`${title} — ArtistLens`} description={summary} lang={lang}>
+  <article class="container">
+    <header class="project-hero">
+      <h1 class="display">{title}</h1>
+      <div class="project-meta">
+        {client && <span>{t('project.client')}: {client}</span>}
+        {year && <span>{t('project.year')}: {year}</span>}
+        {category && <span>{t('project.category')}: {category}</span>}
+      </div>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {
+      gallery.length > 0 && (
+        <div class="gallery">
+          {gallery.map((src) => (
+            <img src={src} alt={title} loading="lazy" />
+          ))}
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>

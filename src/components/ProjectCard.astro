@@ -1,0 +1,25 @@
+---
+import { useTranslations, localizedPath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+  title: string;
+  summary: string;
+  category?: string;
+  cover?: string;
+}
+
+const { lang, slug, title, summary, category, cover } = Astro.props;
+const t = useTranslations(lang);
+const href = localizedPath(lang, `/projects/${slug}`);
+---
+
+<a class="project-card" href={href} aria-label={`${t('projects.viewProject')}: ${title}`}>
+  {cover && <img class="cover" src={cover} alt={title} loading="lazy" />}
+  <div class="meta">
+    {category && <p class="muted">{category}</p>}
+    <h3>{title}</h3>
+    <p class="muted">{summary}</p>
+  </div>
+</a>

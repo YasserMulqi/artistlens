@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { useTranslations } from '../i18n/ui';
+import { SITE } from '../consts';
+
+const lang = 'en';
+const t = useTranslations(lang);
+
+const projects = (
+  await getCollection('projects', (p) => p.data.lang === lang && !p.data.draft)
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title={`${SITE.name} — Content & Visual Production`} lang={lang}>
+  <section class="section container">
+    <h1 class="display">{SITE.name}</h1>
+    <p class="muted" style="font-size: var(--text-lg); margin-block-start: var(--space-2); max-width: 50ch;">
+      {t('site.tagline')}
+    </p>
+  </section>
+
+  <section id="work" class="section container">
+    <h2 style="margin-block-end: var(--space-3);">{t('projects.title')}</h2>
+    <div class="project-grid">
+      {
+        projects.map((project) => (
+          <ProjectCard
+            lang={lang}
+            slug={project.data.slug}
+            title={project.data.title}
+            summary={project.data.summary}
+            category={project.data.category}
+            cover={project.data.cover}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

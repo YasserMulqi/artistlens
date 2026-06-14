@@ -8,9 +8,10 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  bodyClass?: string;
 }
 
-const { title, description = '', lang = 'en' } = Astro.props;
+const { title, description = '', lang = 'en', bodyClass = '' } = Astro.props;
 const dir = lang === 'ar' ? 'rtl' : 'ltr';
 ---
 
@@ -23,7 +24,7 @@ const dir = lang === 'ar' ? 'rtl' : 'ltr';
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class={bodyClass}>
     <Header lang={lang} />
     <main>
       <slot />

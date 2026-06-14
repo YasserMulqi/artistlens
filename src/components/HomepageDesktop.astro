@@ -3,136 +3,180 @@ import MotionWord from './MotionWord.astro';
 import { homepage } from '../data/homepage';
 ---
 
-<div class="home-page">
+<div class="home-page" data-figma-frame="48:3">
   <section class="home-hero" aria-labelledby="home-hero-title">
     <div class="home-hero__media" aria-hidden="true">
       <img src={homepage.hero.image} alt="" />
     </div>
+
     <div class="home-hero__content">
-      <p class="eyebrow">{homepage.hero.kicker}</p>
-      <h1 id="home-hero-title">{homepage.hero.title}</h1>
-      <p class="home-hero__summary">{homepage.hero.summary}</p>
-      <div class="home-hero__tags" aria-label="Specialties">
-        {
-          homepage.hero.tags.map((tag) =>
-            tag === 'Motion' ? (
-              <span class="home-tag">
-                <MotionWord />
-              </span>
-            ) : (
-              <span class="home-tag">{tag}</span>
-            )
-          )
-        }
+      <div class="home-motion-kicker">
+        <span>{homepage.hero.eyebrow}</span>
+        <span class="motion-play" aria-hidden="true"></span>
       </div>
+      <h1 id="home-hero-title">{homepage.hero.title}</h1>
+      <p>{homepage.hero.summary}</p>
       <div class="home-actions">
         <a class="button button--primary" href="#contact">{homepage.hero.primaryCta}</a>
         <a class="button button--ghost" href="#projects">{homepage.hero.secondaryCta}</a>
       </div>
-    </div>
-    <div class="home-hero__caption">
-      <span>Selected direction</span>
-      <strong>Dark cinematic product atmosphere</strong>
-    </div>
-  </section>
-
-  <section id="projects" class="home-section home-section--projects" aria-labelledby="projects-title">
-    <div class="section-heading">
-      <p class="eyebrow">Selected Projects</p>
-      <h2 id="projects-title">A horizontal rhythm for selected work.</h2>
-    </div>
-    <div class="project-track" aria-label="Selected projects">
-      {
-        homepage.projects.map((project) => (
-          <a class="featured-project" href={project.href}>
-            <img src={project.image} alt="" loading="lazy" />
-            <div class="featured-project__body">
-              <span>{project.number}</span>
-              <p>{project.category}</p>
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
-  <section id="frames" class="home-section frames-section" aria-labelledby="frames-title">
-    <div class="section-heading section-heading--split">
-      <div>
-        <p class="eyebrow">Selected Frames</p>
-        <h2 id="frames-title">Stacked frames, held in deep shadow.</h2>
+      <div class="home-tags" aria-label="Specialties">
+        {
+          homepage.hero.tags.map((tag) => (
+            <span class="home-tag">{tag === 'Motion' ? <MotionWord /> : tag}</span>
+          ))
+        }
       </div>
-      <p>
-        A first-pass desktop structure for the approved stacked-scroll idea. Final scroll choreography
-        can be layered in once the image set is locked.
-      </p>
     </div>
-    <div class="frame-stack">
-      {
-        homepage.frames.map((frame) => (
-          <figure class="frame-card">
-            <img src={frame.image} alt="" loading="lazy" />
-            <figcaption>
-              <span>{frame.label}</span>
-              <strong>{frame.title}</strong>
-            </figcaption>
-          </figure>
-        ))
-      }
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span></span>
+      <strong>SCROLL TO EXPLORE</strong>
     </div>
   </section>
 
-  <section id="services" class="home-section services-section" aria-labelledby="services-title">
-    <div class="section-heading">
-      <p class="eyebrow">Services / What I Shoot</p>
-      <h2 id="services-title">Specialties, not separate destinations.</h2>
+  <section id="projects" class="figma-section projects-section" aria-labelledby="projects-title">
+    <div class="figma-section__heading projects-heading">
+      <div>
+        <p class="eyebrow">{homepage.projects.eyebrow}</p>
+        <h2 id="projects-title">{homepage.projects.title}</h2>
+      </div>
+      <p class="section-cue">{homepage.projects.cue} <span>→</span></p>
     </div>
+
+    <div class="projects-rail" aria-label="Selected projects">
+      <div class="projects-track">
+        {
+          homepage.projects.items.map((project) => (
+            <a class="project-tile" href={project.href}>
+              <img src={project.image} alt="" loading="lazy" />
+              <span class="project-tile__number">{project.number}</span>
+              <div>
+                <p>{project.category}</p>
+                <h3>{project.title}</h3>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="rail-progress" aria-hidden="true">
+      <span><i></i></span>
+      <strong>{homepage.projects.counter}</strong>
+    </div>
+  </section>
+
+  <section id="frames" class="figma-section frames-section" aria-labelledby="frames-title">
+    <div class="figma-section__heading frames-heading">
+      <div>
+        <p class="eyebrow">{homepage.frames.eyebrow}</p>
+        <h2 id="frames-title">{homepage.frames.title}</h2>
+      </div>
+      <p class="section-cue">{homepage.frames.cue} <span>↓</span></p>
+    </div>
+
+    <div class="frames-deck" aria-label="Selected frames">
+      {homepage.frames.images.map((image) => <img src={image} alt="" loading="lazy" />)}
+      <div class="frames-meta">
+        <div class="frame-dots" aria-hidden="true">
+          <span></span><span></span><span class="is-active"></span><span></span><span></span><span></span>
+        </div>
+        <div class="frames-caption">
+          <strong>{homepage.frames.counter}</strong>
+          <span></span>
+          <p>{homepage.frames.caption}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="figma-section services-section" aria-labelledby="services-title">
+    <div class="services-copy">
+      <p class="eyebrow">{homepage.services.eyebrow}</p>
+      <h2 id="services-title">{homepage.services.title}</h2>
+      <p>{homepage.services.summary}</p>
+    </div>
+
     <div class="service-grid">
       {
-        homepage.services.map((service) => (
-          <article class="service-item">
-            <h3>{service.title === 'Motion' ? <MotionWord /> : service.title}</h3>
-            <p>{service.summary}</p>
+        homepage.services.items.map((service) => (
+          <article class="service-card">
+            <img src={service.image} alt="" loading="lazy" />
+            {service.title === 'Motion' && (
+              <span class="service-play" aria-hidden="true">
+                <i></i>
+              </span>
+            )}
+            <div>
+              <header>
+                <span>{service.number}</span>
+                <b>→</b>
+              </header>
+              <h3>{service.title === 'Motion' ? <MotionWord /> : service.title}</h3>
+              <p>{service.summary}</p>
+            </div>
           </article>
         ))
       }
     </div>
   </section>
 
-  <section id="motion" class="home-section motion-highlight" aria-labelledby="motion-title">
-    <div class="motion-highlight__copy">
-      <p class="eyebrow">{homepage.motion.eyebrow}</p>
-      <h2 id="motion-title">
-        <MotionWord /> that feels cut from the same visual world.
-      </h2>
-      <p>{homepage.motion.summary}</p>
-      <button class="reel-button" type="button" aria-label="Motion reel placeholder">
-        <span class="reel-button__icon" aria-hidden="true"></span>
-        Reel placeholder
-      </button>
-    </div>
-    <div class="motion-highlight__media">
-      <img src={homepage.motion.image} alt="" loading="lazy" />
-    </div>
-  </section>
-
-  <section id="about" class="home-section about-section" aria-labelledby="about-title">
-    <p class="eyebrow">{homepage.about.eyebrow}</p>
-    <div class="about-section__grid">
-      <h2 id="about-title">{homepage.about.title}</h2>
+  <section id="motion" class="figma-section motion-section" aria-labelledby="motion-title">
+    <div class="motion-heading">
       <div>
-        <img class="about-section__portrait" src={homepage.about.image} alt="Yasser Al-Mulqi" loading="lazy" />
-        <p>{homepage.about.body}</p>
+        <div class="home-motion-kicker">
+          <span>{homepage.motion.eyebrow}</span>
+          <span class="motion-play" aria-hidden="true"></span>
+        </div>
+        <h2 id="motion-title">
+          <MotionWord /> {homepage.motion.titleSuffix}
+        </h2>
       </div>
+      <a href="#contact">{homepage.motion.cta}</a>
+    </div>
+
+    <div class="reel-block">
+      <img src={homepage.motion.image} alt="" loading="lazy" />
+      <span class="reel-play" aria-hidden="true"><i></i></span>
+      <div class="reel-copy">
+        <p>{homepage.motion.meta}</p>
+        <h3>{homepage.motion.title}</h3>
+      </div>
+      <time>{homepage.motion.duration}</time>
     </div>
   </section>
 
-  <section id="contact" class="contact-section" aria-labelledby="contact-title">
+  <section id="contact" class="figma-section contact-section" aria-labelledby="contact-title">
     <p class="eyebrow">{homepage.contact.eyebrow}</p>
     <h2 id="contact-title">{homepage.contact.title}</h2>
     <p>{homepage.contact.summary}</p>
-    <a class="button button--primary" href={`mailto:${homepage.contact.email}`}>{homepage.contact.email}</a>
+    <div class="contact-actions">
+      <a class="button button--primary" href={`mailto:${homepage.contact.email}`}>{homepage.contact.primaryCta}</a>
+      <span><i></i>{homepage.contact.availability}</span>
+    </div>
+    <div class="contact-links">
+      <a href={`mailto:${homepage.contact.email}`}>{homepage.contact.email}</a>
+      {homepage.contact.links.map((item) => <><span></span><a href="#contact">{item}</a></>)}
+    </div>
+  </section>
+
+  <section id="about" class="figma-section about-section" aria-labelledby="about-title">
+    <img class="about-portrait" src={homepage.about.image} alt="Yasser Al-Mulqi" loading="lazy" />
+    <div class="about-copy">
+      <p class="eyebrow">{homepage.about.eyebrow}</p>
+      <h2 id="about-title">{homepage.about.title}</h2>
+      <p>{homepage.about.body}</p>
+      <div class="about-stats">
+        {
+          homepage.about.stats.map((stat) => (
+            <div>
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </section>
 </div>

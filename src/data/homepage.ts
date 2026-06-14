@@ -1,97 +1,138 @@
 export const homepage = {
   hero: {
-    kicker: 'ArtistLens by Yasser Al-Mulqi',
-    title: 'Cinematic visuals for products, spaces, and motion.',
+    eyebrow: 'PRODUCT · FOOD · INTERIOR · MOTION',
+    title: 'Light, taste\n& space —\nseen well.',
     summary:
-      'A personal visual production portfolio shaped around premium product imagery, atmospheric interiors, and refined motion work.',
-    tags: ['Product', 'Food', 'Interior', 'Motion'],
+      'A personal visual studio by Yasser Al-Mulqi, crafting refined photography and cinematic motion for brands, food, interiors and spaces.',
     primaryCta: 'Start a Project',
-    secondaryCta: 'View Selected Work',
+    secondaryCta: 'See Selected Work',
+    tags: ['Product', 'Food', 'Interior', 'Motion'],
     image: '/images/home/hero-car.jpg',
   },
-  projects: [
-    {
-      number: '01',
-      title: 'ClassPRO',
-      category: 'Product Visualization',
-      summary:
-        'Studio-grade visualization built around clean geometry, controlled light, and a modern product presence.',
-      href: '/projects/classpro',
-      image: '/images/home/project-product.jpg',
-    },
-    {
-      number: '02',
-      title: 'Food Story',
-      category: 'Food / Campaign',
-      summary:
-        'Composed food imagery shaped around appetite, texture, and a clear brand atmosphere.',
-      href: '/projects/classpro',
-      image: '/images/home/project-food.jpg',
-    },
-    {
-      number: '03',
-      title: 'Interior Atmosphere',
-      category: 'Interior / Brand Space',
-      summary:
-        'A composed spatial frame direction for future interior photography and visual storytelling.',
-      href: '/projects/classpro',
-      image: '/images/home/project-interior.jpg',
-    },
-  ],
-  frames: [
-    {
-      label: 'Frame 01',
-      title: 'Texture, shadow, and restraint.',
-      image: '/images/home/hero-car.jpg',
-    },
-    {
-      label: 'Frame 02',
-      title: 'A focused orange signal inside deep black.',
-      image: '/images/home/project-product.jpg',
-    },
-    {
-      label: 'Frame 03',
-      title: 'Objects treated with cinematic presence.',
-      image: '/images/home/project-interior.jpg',
-    },
-  ],
-  services: [
-    {
-      title: 'Product',
-      summary: 'Premium stills and visual systems for products that need to feel precise, tactile, and desirable.',
-    },
-    {
-      title: 'Food',
-      summary: 'Composed food imagery with appetite, texture, and brand atmosphere held in the same frame.',
-    },
-    {
-      title: 'Interior',
-      summary: 'Spatial visuals for venues, hospitality, and designed environments with cinematic depth.',
-    },
-    {
-      title: 'Motion',
-      summary: 'Short-form moving images, launch films, reels, and visual beats built from the same art direction.',
-    },
-  ],
+  projects: {
+    eyebrow: 'SELECTED WORK',
+    title: 'Selected Projects',
+    cue: 'Drag to explore',
+    counter: '01 — 06',
+    items: [
+      {
+        number: '01',
+        category: 'PRODUCT',
+        title: 'Bottled Stories',
+        href: '/projects/classpro',
+        image: '/images/home/project-product.jpg',
+      },
+      {
+        number: '02',
+        category: 'FOOD',
+        title: 'The Table',
+        href: '/projects/classpro',
+        image: '/images/home/project-food.jpg',
+      },
+      {
+        number: '03',
+        category: 'INTERIOR',
+        title: 'Quiet Rooms',
+        href: '/projects/classpro',
+        image: '/images/home/project-interior.jpg',
+      },
+      {
+        number: '04',
+        category: 'PRODUCT',
+        title: 'Facets',
+        href: '/projects/classpro',
+        image: '/images/home/project-product.jpg',
+      },
+      {
+        number: '05',
+        category: 'INTERIOR',
+        title: 'The Reception',
+        href: '/projects/classpro',
+        image: '/images/home/project-interior.jpg',
+      },
+      {
+        number: '06',
+        category: 'FOOD',
+        title: 'After Hours',
+        href: '/projects/classpro',
+        image: '/images/home/project-food.jpg',
+      },
+    ],
+  },
+  frames: {
+    eyebrow: 'SELECTED FRAMES',
+    title: 'Frames worth pausing on.',
+    cue: 'Scroll through selected frames',
+    counter: '03 / 06',
+    caption: 'Cinematic stills that stack and change as you scroll',
+    images: [
+      '/images/home/project-interior.jpg',
+      '/images/home/project-product.jpg',
+      '/images/home/project-food.jpg',
+      '/images/home/motion-vfx.jpg',
+    ],
+  },
+  services: {
+    eyebrow: 'SPECIALTIES',
+    title: 'What I Shoot',
+    summary: 'Four disciplines, one consistent eye for light, texture and atmosphere.',
+    items: [
+      {
+        number: '01',
+        title: 'Product',
+        summary: 'Packshots, e-commerce & hero product stills.',
+        image: '/images/home/project-product.jpg',
+      },
+      {
+        number: '02',
+        title: 'Food',
+        summary: 'Appetizing, editorial food & menu imagery.',
+        image: '/images/home/project-food.jpg',
+      },
+      {
+        number: '03',
+        title: 'Interior',
+        summary: 'Architectural spaces with depth and warmth.',
+        image: '/images/home/project-interior.jpg',
+      },
+      {
+        number: '04',
+        title: 'Motion',
+        summary: 'Cinematic brand films, reels & motion.',
+        image: '/images/home/motion-vfx.jpg',
+      },
+    ],
+  },
   motion: {
-    eyebrow: 'Video Highlight',
-    title: 'Motion that feels cut from the same visual world.',
-    summary:
-      'The motion reel will eventually open from here. For this first desktop build, the section establishes the placement, scale, and editorial rhythm.',
+    eyebrow: 'MOTION',
+    titlePrefix: 'Motion',
+    titleSuffix: 'Highlight',
+    cta: 'Watch the reel  →',
+    meta: 'BRAND REEL — 2024',
+    title: 'Ninety seconds of light & motion.',
+    duration: '01:32',
     image: '/images/home/motion-vfx.jpg',
   },
-  about: {
-    eyebrow: 'About',
-    title: 'A personal lens with studio-level control.',
-    body:
-      'ArtistLens is the portfolio of Yasser Al-Mulqi, focused on visual production that makes products, spaces, and ideas feel intentional. The direction is personal and cinematic, with each frame shaped around light, material, and mood.',
-    image: '/images/home/yasser.png',
-  },
   contact: {
-    eyebrow: 'Start a Project',
-    title: 'Let us shape the next visual story.',
+    eyebrow: 'CONTACT',
+    title: 'Have a project in mind?',
     summary:
-      'For product launches, interiors, food stories, and motion pieces, start with a short brief and the visual direction can take shape from there.',
-    email: 'hello@artistlens.studio',
+      "Tell me about it — products, a menu, a space, or a film. I'll reply within a day.",
+    primaryCta: 'Start a project',
+    availability: 'Available for new work · Riyadh, SA',
+    email: 'hello@artistlens.com',
+    links: ['Instagram', 'Behance', 'Riyadh, SA'],
+  },
+  about: {
+    eyebrow: 'ABOUT — YASSER',
+    title: "Hi, I'm Yasser —\nthe eye behind ArtistLens.",
+    body:
+      'A photographer and visual producer based in Riyadh, shaping how brands across Saudi Arabia show their products, food and spaces. You work directly with me — one eye, one standard, and a real point of view behind every frame.',
+    image: '/images/home/yasser.png',
+    stats: [
+      { value: '10+', label: 'Years behind the lens' },
+      { value: '120+', label: 'Projects delivered' },
+      { value: '4', label: 'Core specialties' },
+    ],
   },
 };

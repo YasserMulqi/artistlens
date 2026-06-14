@@ -205,6 +205,12 @@ h3 {
   font-weight: 400;
 }
 
+.brand-figma {
+  width: 282px;
+  height: 26px;
+  object-fit: contain;
+}
+
 .nav-cta {
   color: var(--color-text);
   border: 1px solid rgba(255, 106, 0, 0.58);
@@ -317,8 +323,9 @@ h3 {
 }
 
 .home-desktop .brand {
-  font-size: 44px;
-  line-height: 0.6;
+  width: 282px;
+  height: 26px;
+  line-height: 1;
 }
 
 .home-desktop .site-header nav {
@@ -675,6 +682,7 @@ h3 {
 }
 
 .frames-heading h2 {
+  margin-block-start: 12px;
   font-size: 64px;
   line-height: 67px;
 }
@@ -1093,6 +1101,5 @@ h3 {
 }
 
 .home-desktop .site-footer {
-  background: var(--color-bg);
-  border-block-start: 1px solid rgba(242, 239, 233, 0.08);
+  display: none;
 }

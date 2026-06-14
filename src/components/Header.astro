@@ -14,7 +14,15 @@ const isEnglish = lang === 'en';
 
 <header class="site-header">
   <a class="brand" href={localizedPath(lang, '/')} aria-label="ArtistLens home">
-    <span class="brand-artist">ARTIST</span><span class="brand-lens">LENS</span>
+    {
+      isEnglish ? (
+        <img class="brand-figma" src="/images/figma/artistlens-logo.svg" alt="ArtistLens" />
+      ) : (
+        <>
+          <span class="brand-artist">ARTIST</span><span class="brand-lens">LENS</span>
+        </>
+      )
+    }
   </a>
   <nav>
     {

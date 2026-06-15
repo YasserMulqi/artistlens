@@ -729,9 +729,10 @@ h3 {
 
 .frame-plate {
   position: absolute;
-  inset: 0;
+  inset-block-start: 0;
+  inset-block-end: -1px;
+  inset-inline: 0;
   width: 100%;
-  height: 100%;
   overflow: visible;
   transform-origin: center center;
   will-change: transform;

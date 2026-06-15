@@ -119,9 +119,23 @@ if (isDesktopHome && !reduceMotion) {
   const projectsSection = document.querySelector<HTMLElement>('.projects-section');
   const projectsRail = document.querySelector<HTMLElement>('.projects-rail');
   const projectsTrack = document.querySelector<HTMLElement>('.projects-track');
+  const projectsCounter = document.querySelector<HTMLElement>('.projects-section .rail-progress strong');
 
   if (projectsSection && projectsRail && projectsTrack) {
     gsap.set(projectsRail, { overflow: 'hidden' });
+
+    const totalProjects = projectsTrack.querySelectorAll('.project-tile').length;
+    const projectHoldProgress = 0.14;
+    const setProjectCounter = (progress: number) => {
+      if (!projectsCounter || totalProjects === 0) return;
+      const movementProgress = gsap.utils.clamp(
+        0,
+        1,
+        (progress - projectHoldProgress) / (1 - projectHoldProgress)
+      );
+      const currentProject = Math.round(movementProgress * (totalProjects - 1)) + 1;
+      projectsCounter.textContent = `${String(currentProject).padStart(2, '0')} — ${String(totalProjects).padStart(2, '0')}`;
+    };
 
     const getProjectDistance = () =>
       Math.max(0, projectsTrack.scrollWidth - projectsRail.clientWidth);
@@ -135,10 +149,12 @@ if (isDesktopHome && !reduceMotion) {
         scrub: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onUpdate: (self) => setProjectCounter(self.progress),
       },
     });
 
-    projectsTimeline.to({}, { duration: 0.14 });
+    setProjectCounter(0);
+    projectsTimeline.to({}, { duration: projectHoldProgress });
     projectsTimeline.to(projectsTrack, {
       x: () => -getProjectDistance(),
       ease: 'power2.inOut',

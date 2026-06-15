@@ -14,7 +14,9 @@ import { homepage } from '../data/homepage';
         <span>{homepage.hero.eyebrow}</span>
         <span class="motion-play" aria-hidden="true"></span>
       </div>
-      <h1 id="home-hero-title">{homepage.hero.title}</h1>
+      <h1 id="home-hero-title">
+        {homepage.hero.title.split('\n').map((line) => <span class="hero-title-line"><span>{line}</span></span>)}
+      </h1>
       <p>{homepage.hero.summary}</p>
       <div class="home-actions">
         <a class="button button--primary" href="#contact">{homepage.hero.primaryCta}</a>

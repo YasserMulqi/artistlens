@@ -20,17 +20,103 @@ if (isDesktopHome && !reduceMotion) {
   });
   gsap.ticker.lagSmoothing(0);
 
-  const heroIntro = document.querySelectorAll(
-    '.home-hero__content > *, .scroll-cue'
+  const revealText = (elements: gsap.TweenTarget, trigger?: Element | null, delay = 0) => {
+    gsap.from(elements, {
+      autoAlpha: 0,
+      y: 24,
+      clipPath: 'inset(0 0 100% 0)',
+      duration: 0.9,
+      delay,
+      ease: 'power3.out',
+      stagger: 0.08,
+      clearProps: 'clipPath,transform,opacity,visibility',
+      scrollTrigger: trigger
+        ? {
+            trigger,
+            start: 'top 76%',
+            once: true,
+          }
+        : undefined,
+    });
+  };
+
+  const revealSoft = (elements: gsap.TweenTarget, trigger?: Element | null, delay = 0) => {
+    gsap.from(elements, {
+      autoAlpha: 0,
+      y: 16,
+      duration: 0.7,
+      delay,
+      ease: 'power2.out',
+      stagger: 0.06,
+      clearProps: 'transform,opacity,visibility',
+      scrollTrigger: trigger
+        ? {
+            trigger,
+            start: 'top 78%',
+            once: true,
+          }
+        : undefined,
+    });
+  };
+
+  const revealEyebrows = (root: ParentNode | Document = document) => {
+    gsap.utils.toArray<HTMLElement>('.eyebrow, .home-motion-kicker', root).forEach((element) => {
+      const computedSpacing = window.getComputedStyle(element).letterSpacing;
+      const finalSpacing = Number.parseFloat(computedSpacing);
+      gsap.from(element, {
+        autoAlpha: 0,
+        y: 8,
+        letterSpacing: Number.isFinite(finalSpacing)
+          ? `${Math.max(0, finalSpacing - 0.7)}px`
+          : undefined,
+        duration: 0.65,
+        ease: 'power2.out',
+        clearProps: 'transform,opacity,visibility,letterSpacing',
+        scrollTrigger: element.closest('section')
+          ? {
+              trigger: element.closest('section'),
+              start: 'top 78%',
+              once: true,
+            }
+          : undefined,
+      });
+    });
+  };
+
+  const heroLines = gsap.utils.toArray<HTMLElement>('.hero-title-line > span');
+  const heroSecondary = document.querySelectorAll(
+    '.home-hero__content > p, .home-actions, .home-tags, .scroll-cue'
   );
-  gsap.from(heroIntro, {
+  const heroTimeline = gsap.timeline({ delay: 0.12 });
+  heroTimeline.from(heroLines, {
     autoAlpha: 0,
-    y: 18,
-    duration: 0.8,
-    ease: 'power2.out',
-    stagger: 0.08,
-    delay: 0.15,
+    yPercent: 105,
+    duration: 1,
+    ease: 'power3.out',
+    stagger: 0.11,
+    clearProps: 'transform,opacity,visibility',
   });
+  heroTimeline.from(heroSecondary, {
+    autoAlpha: 0,
+    y: 16,
+    duration: 0.68,
+    ease: 'power2.out',
+    stagger: 0.06,
+    clearProps: 'transform,opacity,visibility',
+  }, '-=0.34');
+
+  revealEyebrows();
+
+  gsap.utils.toArray<HTMLElement>(
+    '.figma-section__heading h2, .services-copy h2, .motion-heading h2, .contact-section h2, .about-copy h2'
+  ).forEach((heading) => {
+    revealText(heading, heading.closest('section'));
+  });
+
+  const serviceCards = gsap.utils.toArray<HTMLElement>('.service-card');
+  if (serviceCards.length) {
+    revealSoft(serviceCards, document.querySelector('.services-section'), 0.08);
+  }
 
   const projectsSection = document.querySelector<HTMLElement>('.projects-section');
   const projectsRail = document.querySelector<HTMLElement>('.projects-rail');
@@ -162,23 +248,6 @@ if (isDesktopHome && !reduceMotion) {
       onEnterBack: () => setFrame(frameCount - 1),
     });
   }
-
-  gsap.utils
-    .toArray<HTMLElement>('.services-section, .motion-section, .contact-section, .about-section')
-    .forEach((section) => {
-      gsap.from(section.children, {
-        autoAlpha: 0,
-        y: 18,
-        duration: 0.55,
-        ease: 'power2.out',
-        stagger: 0.06,
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 72%',
-          once: true,
-        },
-      });
-    });
 
   const reelButton = document.querySelector<HTMLElement>('.reel-play');
   if (reelButton) {

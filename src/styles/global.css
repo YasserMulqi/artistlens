@@ -476,10 +476,18 @@ h3 {
 
 .home-hero h1 {
   margin-block-start: 30px;
-  white-space: pre-line;
   color: var(--color-text);
   font-size: 132px;
   line-height: 0.92;
+}
+
+.hero-title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-title-line > span {
+  display: block;
 }
 
 .home-hero__content > p {

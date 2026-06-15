@@ -82,9 +82,9 @@ import { homepage } from '../data/homepage';
       {
         homepage.frames.images.map((image) => (
           <div class="frame-layer">
+            <span class="frame-top-shadow" aria-hidden="true"></span>
             <div class="frame-plate">
               <img src={image} alt="" loading="lazy" />
-              <span class="frame-top-shadow" aria-hidden="true"></span>
             </div>
           </div>
         ))

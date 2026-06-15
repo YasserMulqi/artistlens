@@ -33,7 +33,7 @@ if (isDesktopHome && !reduceMotion) {
       scrollTrigger: trigger
         ? {
             trigger,
-            start: 'top 76%',
+            start: 'top 80%',
             once: true,
           }
         : undefined,
@@ -91,9 +91,9 @@ if (isDesktopHome && !reduceMotion) {
   heroTimeline.from(heroLines, {
     autoAlpha: 0,
     yPercent: 105,
-    duration: 1,
+    duration: 1.18,
     ease: 'power3.out',
-    stagger: 0.11,
+    stagger: 0.15,
     clearProps: 'transform,opacity,visibility',
   });
   heroTimeline.from(heroSecondary, {
@@ -110,7 +110,7 @@ if (isDesktopHome && !reduceMotion) {
   gsap.utils.toArray<HTMLElement>(
     '.figma-section__heading h2, .services-copy h2, .motion-heading h2, .contact-section h2, .about-copy h2'
   ).forEach((heading) => {
-    revealText(heading, heading.closest('section'));
+    revealText(heading, heading);
   });
 
   const serviceCards = gsap.utils.toArray<HTMLElement>('.service-card');

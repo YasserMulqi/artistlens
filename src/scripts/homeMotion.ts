@@ -106,17 +106,17 @@ if (isDesktopHome && !reduceMotion) {
     frameImages.slice(1).forEach((image) => {
       framesTimeline.to({}, { duration: 0.22 });
       framesTimeline.to(image, {
-        yPercent: 46,
+        yPercent: 18,
         scale: 1.1,
-        filter: 'drop-shadow(0 64px 92px rgba(0, 0, 0, 0.9))',
-        duration: 0.16,
-        ease: 'power4.out',
+        filter: 'drop-shadow(0 72px 108px rgba(0, 0, 0, 0.95))',
+        duration: 0.2,
+        ease: 'power2.out',
       });
       framesTimeline.to(image, {
         yPercent: 0,
         scale: 1,
         filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
-        duration: 0.3,
+        duration: 0.22,
         ease: 'power3.in',
       });
     });

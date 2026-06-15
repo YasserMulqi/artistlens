@@ -42,18 +42,23 @@ if (isDesktopHome && !reduceMotion) {
     const getProjectDistance = () =>
       Math.max(0, projectsTrack.scrollWidth - projectsRail.clientWidth);
 
-    gsap.to(projectsTrack, {
-      x: () => -getProjectDistance(),
-      ease: 'none',
+    const projectsTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: projectsSection,
         start: 'top top',
-        end: () => `+=${getProjectDistance()}`,
+        end: () => `+=${getProjectDistance() * 1.15}`,
         pin: true,
         scrub: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },
+    });
+
+    projectsTimeline.to({}, { duration: 0.14 });
+    projectsTimeline.to(projectsTrack, {
+      x: () => -getProjectDistance(),
+      ease: 'power2.inOut',
+      duration: 0.86,
     });
   }
 

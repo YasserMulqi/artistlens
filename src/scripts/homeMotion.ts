@@ -116,8 +116,8 @@ if (isDesktopHome && !reduceMotion) {
       }, transitionStart);
       framesTimeline.to(image, {
         keyframes: [
-          { scale: 1.1, duration: transitionHalfDuration, ease: 'power2.out' },
-          { scale: 1, duration: transitionHalfDuration, ease: 'power3.in' },
+          { scale: 1.1, duration: transitionHalfDuration, ease: 'sine.in' },
+          { scale: 1, duration: transitionHalfDuration, ease: 'sine.out' },
         ],
       }, transitionStart);
       framesTimeline.to(image, {

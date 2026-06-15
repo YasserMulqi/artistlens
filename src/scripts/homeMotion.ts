@@ -65,18 +65,6 @@ if (isDesktopHome && !reduceMotion) {
 
   const setFrame = (index: number) => {
     const safeIndex = Math.min(frameCount - 1, Math.max(0, index));
-    frameImages.forEach((image, imageIndex) => {
-      const offset = imageIndex - safeIndex;
-      const isActive = imageIndex === safeIndex;
-      gsap.to(image, {
-        autoAlpha: isActive ? 1 : imageIndex < safeIndex ? 0 : 0.34,
-        y: isActive ? 0 : Math.max(0, offset) * 18,
-        scale: isActive ? 1 : 0.985,
-        duration: 0.32,
-        ease: 'power1.out',
-        overwrite: true,
-      });
-    });
     if (frameCounter) {
       frameCounter.textContent = `${String(safeIndex + 1).padStart(2, '0')} / 06`;
     }
@@ -86,18 +74,37 @@ if (isDesktopHome && !reduceMotion) {
   };
 
   if (framesSection && frameImages.length >= frameCount) {
+    gsap.set(frameImages, { autoAlpha: 1, yPercent: 0 });
+    gsap.set(frameImages.slice(1), { yPercent: 100 });
     setFrame(0);
+
+    const framesTimeline = gsap.timeline({
+      defaults: { ease: 'power2.inOut' },
+      scrollTrigger: {
+        trigger: framesSection,
+        start: 'top top',
+        end: `+=${window.innerHeight * frameCount * 1.15}`,
+        pin: true,
+        scrub: 0.65,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          setFrame(Math.floor(self.progress * frameCount));
+        },
+      },
+    });
+
+    frameImages.slice(1).forEach((image) => {
+      framesTimeline.to({}, { duration: 0.28 });
+      framesTimeline.to(image, { yPercent: 0, duration: 0.72 });
+    });
+    framesTimeline.to({}, { duration: 0.35 });
 
     ScrollTrigger.create({
       trigger: framesSection,
       start: 'top top',
-      end: `+=${window.innerHeight * (frameCount - 1)}`,
-      pin: true,
-      scrub: true,
-      anticipatePin: 1,
-      onUpdate: (self) => {
-        setFrame(Math.round(self.progress * (frameCount - 1)));
-      },
+      end: `+=${window.innerHeight * frameCount * 1.15}`,
+      onLeave: () => setFrame(frameCount - 1),
+      onEnterBack: () => setFrame(frameCount - 1),
     });
   }
 

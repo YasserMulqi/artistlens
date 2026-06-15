@@ -108,15 +108,15 @@ if (isDesktopHome && !reduceMotion) {
       framesTimeline.to(image, {
         yPercent: 46,
         scale: 1.1,
-        filter: 'drop-shadow(0 54px 68px rgba(0, 0, 0, 0.62))',
-        duration: 0.26,
-        ease: 'power3.out',
+        filter: 'drop-shadow(0 64px 92px rgba(0, 0, 0, 0.9))',
+        duration: 0.16,
+        ease: 'power4.out',
       });
       framesTimeline.to(image, {
         yPercent: 0,
         scale: 1,
         filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
-        duration: 0.32,
+        duration: 0.3,
         ease: 'power3.in',
       });
     });

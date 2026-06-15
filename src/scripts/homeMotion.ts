@@ -74,8 +74,18 @@ if (isDesktopHome && !reduceMotion) {
   };
 
   if (framesSection && frameImages.length >= frameCount) {
-    gsap.set(frameImages, { autoAlpha: 1, yPercent: 0 });
-    gsap.set(frameImages.slice(1), { yPercent: 100 });
+    gsap.set(frameImages, {
+      autoAlpha: 1,
+      yPercent: 0,
+      scale: 1,
+      boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+      transformOrigin: '50% 50%',
+    });
+    gsap.set(frameImages.slice(1), {
+      yPercent: 100,
+      scale: 1.03,
+      boxShadow: '0 24px 70px rgba(0, 0, 0, 0.24)',
+    });
     setFrame(0);
 
     const framesTimeline = gsap.timeline({
@@ -95,7 +105,18 @@ if (isDesktopHome && !reduceMotion) {
 
     frameImages.slice(1).forEach((image) => {
       framesTimeline.to({}, { duration: 0.28 });
-      framesTimeline.to(image, { yPercent: 0, duration: 0.72 });
+      framesTimeline.to(image, {
+        yPercent: 46,
+        scale: 1.1,
+        boxShadow: '0 42px 110px rgba(0, 0, 0, 0.34)',
+        duration: 0.36,
+      });
+      framesTimeline.to(image, {
+        yPercent: 0,
+        scale: 1,
+        boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+        duration: 0.36,
+      });
     });
     framesTimeline.to({}, { duration: 0.35 });
 

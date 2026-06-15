@@ -59,7 +59,7 @@ if (isDesktopHome && !reduceMotion) {
 
   const framesSection = document.querySelector<HTMLElement>('.frames-section');
   const frameLayers = gsap.utils.toArray<HTMLElement>('.frames-deck > .frame-layer');
-  const frameImages = gsap.utils.toArray<HTMLImageElement>('.frame-layer > img');
+  const framePlates = gsap.utils.toArray<HTMLElement>('.frame-plate');
   const frameShadows = gsap.utils.toArray<HTMLElement>('.frame-top-shadow');
   const frameCounter = document.querySelector<HTMLElement>('.frames-caption strong');
   const frameDots = gsap.utils.toArray<HTMLElement>('.frame-dots span');
@@ -81,7 +81,7 @@ if (isDesktopHome && !reduceMotion) {
       yPercent: 0,
       filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
     });
-    gsap.set(frameImages, {
+    gsap.set(framePlates, {
       scale: 1,
       transformOrigin: '50% 50%',
     });
@@ -108,7 +108,7 @@ if (isDesktopHome && !reduceMotion) {
     });
 
     frameLayers.slice(1).forEach((layer, index) => {
-      const image = frameImages[index + 1];
+      const plate = framePlates[index + 1];
       const shadow = frameShadows[index + 1];
       framesTimeline.to({}, { duration: 0.22 });
       const transitionStart = framesTimeline.duration();
@@ -120,7 +120,7 @@ if (isDesktopHome && !reduceMotion) {
         duration: transitionDuration,
         ease: 'power2.inOut',
       }, transitionStart);
-      framesTimeline.to(image, {
+      framesTimeline.to(plate, {
         keyframes: [
           { scale: 1.1, duration: transitionHalfDuration, ease: 'sine.in' },
           { scale: 1, duration: transitionHalfDuration, ease: 'sine.out' },

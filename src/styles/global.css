@@ -716,7 +716,15 @@ h3 {
   will-change: transform;
 }
 
-.frame-layer > img {
+.frame-plate {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.frame-plate > img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -775,7 +783,7 @@ h3 {
 
   .projects-track,
   .frame-layer,
-  .frame-layer > img {
+  .frame-plate {
     transform: none !important;
   }
 }

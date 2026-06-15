@@ -167,10 +167,17 @@ if (isDesktopHome && !reduceMotion) {
   if (framesSection && frameLayers.length >= frameCount) {
     gsap.set(frameLayers, {
       autoAlpha: 1,
+      x: 0,
+      y: 0,
       yPercent: 0,
+      scale: 1,
       filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
+      transformOrigin: '50% 50%',
     });
     gsap.set(framePlates, {
+      x: 0,
+      y: 0,
+      yPercent: 0,
       scale: 1,
       transformOrigin: '50% 50%',
     });
@@ -214,6 +221,7 @@ if (isDesktopHome && !reduceMotion) {
           { scale: 1.1, duration: transitionHalfDuration, ease: 'sine.in' },
           { scale: 1, duration: transitionHalfDuration, ease: 'sine.out' },
         ],
+        overwrite: 'auto',
       }, transitionStart);
       framesTimeline.to(layer, {
         keyframes: [

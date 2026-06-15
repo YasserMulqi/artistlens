@@ -9,6 +9,10 @@ const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
 const canRunDesktopMotion = isDesktopHome && isDesktopViewport && hasFinePointer && !reduceMotion;
 let lenis: Lenis | null = null;
 
+if (isDesktopHome && !canRunDesktopMotion) {
+  document.body.classList.add('home-motion-static');
+}
+
 if (canRunDesktopMotion) {
   gsap.registerPlugin(ScrollTrigger);
 

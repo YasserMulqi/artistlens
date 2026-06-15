@@ -871,6 +871,68 @@ h3 {
   font-weight: 500;
 }
 
+.home-motion-static .projects-section,
+.home-motion-static .frames-section {
+  height: auto;
+  padding-block-end: 120px;
+}
+
+.home-motion-static .projects-rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 106, 0, 0.75) rgba(255, 255, 255, 0.14);
+}
+
+.home-motion-static .projects-rail::-webkit-scrollbar {
+  display: block;
+  height: 8px;
+}
+
+.home-motion-static .projects-rail::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.home-motion-static .projects-rail::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 106, 0, 0.75);
+}
+
+.home-motion-static .projects-track {
+  width: max-content;
+  transform: none !important;
+}
+
+.home-motion-static .frames-deck {
+  display: grid;
+  gap: 24px;
+  aspect-ratio: auto;
+  overflow: visible;
+  background: transparent;
+}
+
+.home-motion-static .frames-deck::after,
+.home-motion-static .frame-top-shadow {
+  display: none;
+}
+
+.home-motion-static .frame-layer {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  transform: none !important;
+  overflow: hidden;
+}
+
+.home-motion-static .frame-plate {
+  transform: none !important;
+}
+
+.home-motion-static .frames-meta {
+  position: static;
+  transform: none;
+  justify-self: center;
+}
+
 .services-section {
   height: 800px;
   padding-block-start: 120px;

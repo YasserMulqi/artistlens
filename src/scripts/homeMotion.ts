@@ -78,13 +78,13 @@ if (isDesktopHome && !reduceMotion) {
       autoAlpha: 1,
       yPercent: 0,
       scale: 1,
-      boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+      filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
       transformOrigin: '50% 50%',
     });
     gsap.set(frameImages.slice(1), {
       yPercent: 100,
-      scale: 1.03,
-      boxShadow: '0 24px 70px rgba(0, 0, 0, 0.24)',
+      scale: 1,
+      filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
     });
     setFrame(0);
 
@@ -108,14 +108,16 @@ if (isDesktopHome && !reduceMotion) {
       framesTimeline.to(image, {
         yPercent: 46,
         scale: 1.1,
-        boxShadow: '0 42px 110px rgba(0, 0, 0, 0.34)',
+        filter: 'drop-shadow(0 42px 42px rgba(0, 0, 0, 0.42))',
         duration: 0.36,
+        ease: 'power2.inOut',
       });
       framesTimeline.to(image, {
         yPercent: 0,
         scale: 1,
-        boxShadow: '0 0 0 rgba(0, 0, 0, 0)',
+        filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
         duration: 0.36,
+        ease: 'power2.inOut',
       });
     });
     framesTimeline.to({}, { duration: 0.35 });

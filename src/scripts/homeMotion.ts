@@ -107,6 +107,7 @@ if (isDesktopHome && !reduceMotion) {
       framesTimeline.to({}, { duration: 0.22 });
       const transitionStart = framesTimeline.duration();
       const transitionDuration = 0.42;
+      const transitionHalfDuration = transitionDuration / 2;
 
       framesTimeline.to(image, {
         yPercent: 0,
@@ -115,8 +116,8 @@ if (isDesktopHome && !reduceMotion) {
       }, transitionStart);
       framesTimeline.to(image, {
         keyframes: [
-          { scale: 1.1, duration: 0.18, ease: 'power2.out' },
-          { scale: 1, duration: 0.24, ease: 'power3.in' },
+          { scale: 1.1, duration: transitionHalfDuration, ease: 'power2.out' },
+          { scale: 1, duration: transitionHalfDuration, ease: 'power3.in' },
         ],
       }, transitionStart);
       framesTimeline.to(image, {

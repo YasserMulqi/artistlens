@@ -187,7 +187,6 @@ if (isDesktopHome && !reduceMotion) {
       y: 0,
       yPercent: 0,
       scale: 1,
-      filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
       transformOrigin: '50% 50%',
     });
     gsap.set(framePlates, {
@@ -199,7 +198,6 @@ if (isDesktopHome && !reduceMotion) {
     });
     gsap.set(frameLayers.slice(1), {
       yPercent: 100,
-      filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
     });
     gsap.set(frameShadows, { autoAlpha: 0 });
     setFrame(0);
@@ -239,20 +237,6 @@ if (isDesktopHome && !reduceMotion) {
         ],
         overwrite: 'auto',
       }, transitionStart);
-      framesTimeline.to(layer, {
-        keyframes: [
-          {
-            filter: 'drop-shadow(0 72px 108px rgba(0, 0, 0, 0.95))',
-            duration: 0.18,
-            ease: 'power2.out',
-          },
-          {
-            filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
-            duration: 0.24,
-            ease: 'power3.in',
-          },
-        ],
-      }, transitionStart);
       framesTimeline.to(shadow, {
         keyframes: [
           { autoAlpha: 1, duration: transitionHalfDuration, ease: 'sine.in' },
@@ -265,7 +249,6 @@ if (isDesktopHome && !reduceMotion) {
         y: 0,
         yPercent: 0,
         scale: 1,
-        filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
       }, transitionStart + transitionDuration);
       framesTimeline.set(plate, {
         x: 0,

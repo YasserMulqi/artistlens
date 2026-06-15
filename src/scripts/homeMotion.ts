@@ -104,23 +104,23 @@ if (isDesktopHome && !reduceMotion) {
     });
 
     frameImages.slice(1).forEach((image) => {
-      framesTimeline.to({}, { duration: 0.28 });
+      framesTimeline.to({}, { duration: 0.22 });
       framesTimeline.to(image, {
         yPercent: 46,
         scale: 1.1,
-        filter: 'drop-shadow(0 42px 42px rgba(0, 0, 0, 0.42))',
-        duration: 0.36,
-        ease: 'power2.inOut',
+        filter: 'drop-shadow(0 54px 68px rgba(0, 0, 0, 0.62))',
+        duration: 0.26,
+        ease: 'power3.out',
       });
       framesTimeline.to(image, {
         yPercent: 0,
         scale: 1,
         filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
-        duration: 0.36,
-        ease: 'power2.inOut',
+        duration: 0.32,
+        ease: 'power3.in',
       });
     });
-    framesTimeline.to({}, { duration: 0.35 });
+    framesTimeline.to({}, { duration: 0.28 });
 
     ScrollTrigger.create({
       trigger: framesSection,

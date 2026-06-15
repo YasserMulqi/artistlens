@@ -1181,11 +1181,11 @@ h3 {
   z-index: 30;
   border: 0;
   border-radius: 999px;
-  padding: 9px 13px;
-  color: rgba(242, 239, 233, 0.68);
-  background: rgba(14, 14, 16, 0.42);
-  box-shadow: inset 0 0 0 1px rgba(242, 239, 233, 0.16);
-  font-size: 12px;
+  padding: 12px 17px;
+  color: rgba(242, 239, 233, 0.78);
+  background: rgba(14, 14, 16, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(242, 239, 233, 0.24);
+  font-size: 15px;
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.04em;
@@ -1204,8 +1204,8 @@ h3 {
 .back-to-top:hover,
 .back-to-top:focus-visible {
   color: var(--color-accent);
-  background: rgba(14, 14, 16, 0.72);
-  box-shadow: inset 0 0 0 1px rgba(255, 106, 0, 0.5);
+  background: rgba(14, 14, 16, 0.78);
+  box-shadow: inset 0 0 0 1px rgba(255, 106, 0, 0.72);
 }
 
 .back-to-top.is-visible {

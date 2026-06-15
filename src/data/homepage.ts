@@ -63,13 +63,15 @@ export const homepage = {
     eyebrow: 'SELECTED FRAMES',
     title: 'Frames worth pausing on.',
     cue: 'Scroll through selected frames',
-    counter: '03 / 06',
+    counter: '01 / 06',
     caption: 'Cinematic stills that stack and change as you scroll',
     images: [
       '/images/home/project-interior.jpg',
       '/images/home/project-product.jpg',
       '/images/home/project-food.jpg',
       '/images/home/motion-vfx.jpg',
+      '/images/home/project-interior.jpg',
+      '/images/home/project-food.jpg',
     ],
   },
   services: {

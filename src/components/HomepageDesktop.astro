@@ -80,7 +80,7 @@ import { homepage } from '../data/homepage';
       {homepage.frames.images.map((image) => <img src={image} alt="" loading="lazy" />)}
       <div class="frames-meta">
         <div class="frame-dots" aria-hidden="true">
-          <span></span><span></span><span class="is-active"></span><span></span><span></span><span></span>
+          <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span>
         </div>
         <div class="frames-caption">
           <strong>{homepage.frames.counter}</strong>
@@ -180,3 +180,7 @@ import { homepage } from '../data/homepage';
     </div>
   </section>
 </div>
+
+<script>
+  import '../scripts/homeMotion';
+</script>

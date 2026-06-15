@@ -596,6 +596,7 @@ h3 {
   gap: 26px;
   width: 3070px;
   height: 640px;
+  will-change: transform;
 }
 
 .project-tile {
@@ -706,6 +707,7 @@ h3 {
   position: absolute;
   object-fit: cover;
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+  will-change: opacity, transform;
 }
 
 .frames-deck > img:nth-child(1) {
@@ -734,6 +736,26 @@ h3 {
   top: 182px;
   width: 1460px;
   height: 626px;
+}
+
+.frames-deck > img:nth-child(5),
+.frames-deck > img:nth-child(6) {
+  left: 110px;
+  top: 182px;
+  width: 1460px;
+  height: 626px;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .projects-track,
+  .frames-deck > img {
+    transform: none !important;
+  }
 }
 
 .frames-meta {

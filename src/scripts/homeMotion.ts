@@ -4,11 +4,12 @@ import Lenis from 'lenis';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isDesktopHome = document.body.classList.contains('home-desktop');
+let lenis: Lenis | null = null;
 
 if (isDesktopHome && !reduceMotion) {
   gsap.registerPlugin(ScrollTrigger);
 
-  const lenis = new Lenis({
+  lenis = new Lenis({
     duration: 1.05,
     smoothWheel: true,
     wheelMultiplier: 0.9,
@@ -278,4 +279,35 @@ if (isDesktopHome && !reduceMotion) {
   }
 
   ScrollTrigger.refresh();
+}
+
+if (isDesktopHome) {
+  const backToTop = document.querySelector<HTMLButtonElement>('.back-to-top');
+
+  if (backToTop) {
+    let isBackToTopVisible = false;
+
+    const updateBackToTop = () => {
+      const shouldShow = window.scrollY > window.innerHeight * 0.6;
+      if (shouldShow !== isBackToTopVisible) {
+        isBackToTopVisible = shouldShow;
+        backToTop.classList.toggle('is-visible', shouldShow);
+      }
+    };
+
+    backToTop.addEventListener('click', () => {
+      if (lenis && !reduceMotion) {
+        lenis.scrollTo(0);
+        return;
+      }
+
+      window.scrollTo({
+        top: 0,
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      });
+    });
+
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    updateBackToTop();
+  }
 }

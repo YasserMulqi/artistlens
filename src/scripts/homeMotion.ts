@@ -4,9 +4,12 @@ import Lenis from 'lenis';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isDesktopHome = document.body.classList.contains('home-desktop');
+const isDesktopViewport = window.matchMedia('(min-width: 1024px)').matches;
+const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+const canRunDesktopMotion = isDesktopHome && isDesktopViewport && hasFinePointer && !reduceMotion;
 let lenis: Lenis | null = null;
 
-if (isDesktopHome && !reduceMotion) {
+if (canRunDesktopMotion) {
   gsap.registerPlugin(ScrollTrigger);
 
   lenis = new Lenis({

@@ -77,7 +77,14 @@ import { homepage } from '../data/homepage';
     </div>
 
     <div class="frames-deck" aria-label="Selected frames">
-      {homepage.frames.images.map((image) => <img src={image} alt="" loading="lazy" />)}
+      {
+        homepage.frames.images.map((image) => (
+          <div class="frame-layer">
+            <img src={image} alt="" loading="lazy" />
+            <span class="frame-top-shadow" aria-hidden="true"></span>
+          </div>
+        ))
+      }
       <div class="frames-meta">
         <div class="frame-dots" aria-hidden="true">
           <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span>

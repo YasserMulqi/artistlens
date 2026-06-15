@@ -58,7 +58,9 @@ if (isDesktopHome && !reduceMotion) {
   }
 
   const framesSection = document.querySelector<HTMLElement>('.frames-section');
-  const frameImages = gsap.utils.toArray<HTMLImageElement>('.frames-deck > img');
+  const frameLayers = gsap.utils.toArray<HTMLElement>('.frames-deck > .frame-layer');
+  const frameImages = gsap.utils.toArray<HTMLImageElement>('.frame-layer > img');
+  const frameShadows = gsap.utils.toArray<HTMLElement>('.frame-top-shadow');
   const frameCounter = document.querySelector<HTMLElement>('.frames-caption strong');
   const frameDots = gsap.utils.toArray<HTMLElement>('.frame-dots span');
   const frameCount = 6;
@@ -73,19 +75,21 @@ if (isDesktopHome && !reduceMotion) {
     });
   };
 
-  if (framesSection && frameImages.length >= frameCount) {
-    gsap.set(frameImages, {
+  if (framesSection && frameLayers.length >= frameCount) {
+    gsap.set(frameLayers, {
       autoAlpha: 1,
       yPercent: 0,
-      scale: 1,
       filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
+    });
+    gsap.set(frameImages, {
+      scale: 1,
       transformOrigin: '50% 50%',
     });
-    gsap.set(frameImages.slice(1), {
+    gsap.set(frameLayers.slice(1), {
       yPercent: 100,
-      scale: 1,
       filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
     });
+    gsap.set(frameShadows, { autoAlpha: 0 });
     setFrame(0);
 
     const framesTimeline = gsap.timeline({
@@ -103,13 +107,15 @@ if (isDesktopHome && !reduceMotion) {
       },
     });
 
-    frameImages.slice(1).forEach((image) => {
+    frameLayers.slice(1).forEach((layer, index) => {
+      const image = frameImages[index + 1];
+      const shadow = frameShadows[index + 1];
       framesTimeline.to({}, { duration: 0.22 });
       const transitionStart = framesTimeline.duration();
       const transitionDuration = 0.42;
       const transitionHalfDuration = transitionDuration / 2;
 
-      framesTimeline.to(image, {
+      framesTimeline.to(layer, {
         yPercent: 0,
         duration: transitionDuration,
         ease: 'power2.inOut',
@@ -120,7 +126,7 @@ if (isDesktopHome && !reduceMotion) {
           { scale: 1, duration: transitionHalfDuration, ease: 'sine.out' },
         ],
       }, transitionStart);
-      framesTimeline.to(image, {
+      framesTimeline.to(layer, {
         keyframes: [
           {
             filter: 'drop-shadow(0 72px 108px rgba(0, 0, 0, 0.95))',
@@ -132,6 +138,12 @@ if (isDesktopHome && !reduceMotion) {
             duration: 0.24,
             ease: 'power3.in',
           },
+        ],
+      }, transitionStart);
+      framesTimeline.to(shadow, {
+        keyframes: [
+          { autoAlpha: 1, duration: transitionHalfDuration, ease: 'sine.in' },
+          { autoAlpha: 0, duration: transitionHalfDuration, ease: 'sine.out' },
         ],
       }, transitionStart);
     });

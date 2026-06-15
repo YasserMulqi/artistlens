@@ -1,6 +1,20 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import MotionWord from './MotionWord.astro';
 import { homepage } from '../data/homepage';
+
+type Props = {
+  selectedProjects: CollectionEntry<'projects'>[];
+};
+
+const { selectedProjects } = Astro.props;
+const selectedProjectCards = selectedProjects.map((project, index) => ({
+  number: String(index + 1).padStart(2, '0'),
+  category: project.data.category ?? 'PROJECT',
+  title: project.data.title,
+  href: `/projects/${project.data.slug}`,
+  image: project.data.cover ?? '/images/home/project-product.jpg',
+}));
 ---
 
 <div class="home-page" data-figma-frame="48:3">
@@ -49,7 +63,7 @@ import { homepage } from '../data/homepage';
     <div class="projects-rail" aria-label="Selected projects">
       <div class="projects-track">
         {
-          homepage.projects.items.map((project) => (
+          selectedProjectCards.map((project) => (
             <a class="project-tile" href={project.href}>
               <img src={project.image} alt="" loading="lazy" />
               <span class="project-tile__number">{project.number}</span>

@@ -10,7 +10,7 @@ cover: "/images/projects/classpro/cover.jpg"
 gallery:
   - "/images/projects/classpro/01.jpg"
   - "/images/projects/classpro/02.jpg"
-order: 1
+order: 100
 draft: false
 ---
 

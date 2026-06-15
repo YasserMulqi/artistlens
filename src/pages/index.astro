@@ -1,9 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomepageDesktop from '../components/HomepageDesktop.astro';
 import { SITE } from '../consts';
 
 const lang = 'en';
+const selectedProjects = (await getCollection(
+  'projects',
+  (project) => project.data.language === 'en' && !project.data.draft
+))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 12);
 ---
 
 <BaseLayout
@@ -12,5 +19,5 @@ const lang = 'en';
   lang={lang}
   bodyClass="home-desktop"
 >
-  <HomepageDesktop />
+  <HomepageDesktop selectedProjects={selectedProjects} />
 </BaseLayout>

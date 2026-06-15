@@ -243,6 +243,23 @@ if (isDesktopHome && !reduceMotion) {
           { autoAlpha: 0, duration: transitionHalfDuration, ease: 'sine.out' },
         ],
       }, transitionStart);
+      framesTimeline.set(layer, {
+        autoAlpha: 1,
+        x: 0,
+        y: 0,
+        yPercent: 0,
+        scale: 1,
+        filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
+      }, transitionStart + transitionDuration);
+      framesTimeline.set(plate, {
+        x: 0,
+        y: 0,
+        yPercent: 0,
+        scale: 1,
+      }, transitionStart + transitionDuration);
+      framesTimeline.set(shadow, {
+        autoAlpha: 0,
+      }, transitionStart + transitionDuration);
     });
     framesTimeline.to({}, { duration: 0.28 });
 

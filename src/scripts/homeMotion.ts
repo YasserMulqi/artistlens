@@ -105,20 +105,34 @@ if (isDesktopHome && !reduceMotion) {
 
     frameImages.slice(1).forEach((image) => {
       framesTimeline.to({}, { duration: 0.22 });
-      framesTimeline.to(image, {
-        yPercent: 18,
-        scale: 1.1,
-        filter: 'drop-shadow(0 72px 108px rgba(0, 0, 0, 0.95))',
-        duration: 0.2,
-        ease: 'power2.out',
-      });
+      const transitionStart = framesTimeline.duration();
+      const transitionDuration = 0.42;
+
       framesTimeline.to(image, {
         yPercent: 0,
-        scale: 1,
-        filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
-        duration: 0.22,
-        ease: 'power3.in',
-      });
+        duration: transitionDuration,
+        ease: 'power2.inOut',
+      }, transitionStart);
+      framesTimeline.to(image, {
+        keyframes: [
+          { scale: 1.1, duration: 0.18, ease: 'power2.out' },
+          { scale: 1, duration: 0.24, ease: 'power3.in' },
+        ],
+      }, transitionStart);
+      framesTimeline.to(image, {
+        keyframes: [
+          {
+            filter: 'drop-shadow(0 72px 108px rgba(0, 0, 0, 0.95))',
+            duration: 0.18,
+            ease: 'power2.out',
+          },
+          {
+            filter: 'drop-shadow(0 0 0 rgba(0, 0, 0, 0))',
+            duration: 0.24,
+            ease: 'power3.in',
+          },
+        ],
+      }, transitionStart);
     });
     framesTimeline.to({}, { duration: 0.28 });
 

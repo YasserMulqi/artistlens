@@ -20,7 +20,12 @@ if (isDesktopHome && !reduceMotion) {
   });
   gsap.ticker.lagSmoothing(0);
 
-  const revealText = (elements: gsap.TweenTarget, trigger?: Element | null, delay = 0) => {
+  const revealText = (
+    elements: gsap.TweenTarget,
+    trigger?: Element | null,
+    delay = 0,
+    start = 'top 80%'
+  ) => {
     gsap.from(elements, {
       autoAlpha: 0,
       y: 24,
@@ -33,7 +38,7 @@ if (isDesktopHome && !reduceMotion) {
       scrollTrigger: trigger
         ? {
             trigger,
-            start: 'top 80%',
+            start,
             once: true,
           }
         : undefined,
@@ -63,19 +68,24 @@ if (isDesktopHome && !reduceMotion) {
     gsap.utils.toArray<HTMLElement>('.eyebrow, .home-motion-kicker', root).forEach((element) => {
       const computedSpacing = window.getComputedStyle(element).letterSpacing;
       const finalSpacing = Number.parseFloat(computedSpacing);
+      const isLowerHeading = Boolean(
+        element.closest('.services-section, .motion-section, .contact-section, .about-section')
+      );
+      const isHeroKicker = Boolean(element.closest('.home-hero'));
       gsap.from(element, {
         autoAlpha: 0,
         y: 8,
         letterSpacing: Number.isFinite(finalSpacing)
           ? `${Math.max(0, finalSpacing - 0.7)}px`
           : undefined,
+        delay: isLowerHeading ? 0.1 : 0,
         duration: 0.65,
         ease: 'power2.out',
         clearProps: 'transform,opacity,visibility,letterSpacing',
-        scrollTrigger: element.closest('section')
+        scrollTrigger: !isHeroKicker
           ? {
-              trigger: element.closest('section'),
-              start: 'top 78%',
+              trigger: element,
+              start: isLowerHeading ? 'top 82%' : 'top 80%',
               once: true,
             }
           : undefined,
@@ -104,19 +114,6 @@ if (isDesktopHome && !reduceMotion) {
     stagger: 0.06,
     clearProps: 'transform,opacity,visibility',
   }, '-=0.34');
-
-  revealEyebrows();
-
-  gsap.utils.toArray<HTMLElement>(
-    '.figma-section__heading h2, .services-copy h2, .motion-heading h2, .contact-section h2, .about-copy h2'
-  ).forEach((heading) => {
-    revealText(heading, heading);
-  });
-
-  const serviceCards = gsap.utils.toArray<HTMLElement>('.service-card');
-  if (serviceCards.length) {
-    revealSoft(serviceCards, document.querySelector('.services-section'), 0.08);
-  }
 
   const projectsSection = document.querySelector<HTMLElement>('.projects-section');
   const projectsRail = document.querySelector<HTMLElement>('.projects-rail');
@@ -249,6 +246,22 @@ if (isDesktopHome && !reduceMotion) {
     });
   }
 
+  revealEyebrows();
+
+  gsap.utils.toArray<HTMLElement>(
+    '.figma-section__heading h2, .services-copy h2, .motion-heading h2, .contact-section h2, .about-copy h2'
+  ).forEach((heading) => {
+    const isLowerHeading = Boolean(
+      heading.closest('.services-section, .motion-section, .contact-section, .about-section')
+    );
+    revealText(heading, heading, isLowerHeading ? 0.1 : 0, isLowerHeading ? 'top 82%' : 'top 80%');
+  });
+
+  const serviceCards = gsap.utils.toArray<HTMLElement>('.service-card');
+  if (serviceCards.length) {
+    revealSoft(serviceCards, document.querySelector('.services-section'), 0.08);
+  }
+
   const reelButton = document.querySelector<HTMLElement>('.reel-play');
   if (reelButton) {
     reelButton.setAttribute('role', 'button');
@@ -263,4 +276,6 @@ if (isDesktopHome && !reduceMotion) {
     reelButton.addEventListener('pointerenter', pulse);
     reelButton.addEventListener('focus', pulse);
   }
+
+  ScrollTrigger.refresh();
 }

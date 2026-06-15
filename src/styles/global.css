@@ -699,9 +699,10 @@ h3 {
 
 .frames-deck {
   position: relative;
-  width: min(1680px, calc(100vw - 240px));
+  width: 100vw;
   aspect-ratio: 21 / 9;
   height: auto;
+  margin-inline-start: calc(50% - 50vw);
   margin-block-start: 48px;
   overflow: hidden;
   background: var(--color-card);
@@ -755,9 +756,10 @@ h3 {
 
 .frames-meta {
   position: absolute;
-  left: 586px;
+  left: 50%;
   top: 800px;
   width: 508px;
+  transform: translateX(-50%);
   display: grid;
   justify-items: center;
   gap: 14px;

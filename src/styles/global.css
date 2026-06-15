@@ -716,6 +716,18 @@ h3 {
   background: var(--color-card);
 }
 
+.frames-deck::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 20;
+  height: 4px;
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
 .frame-layer {
   position: absolute;
   inset: 0;

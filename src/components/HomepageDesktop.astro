@@ -58,6 +58,12 @@ const imageLanguage = isArabic ? 'ar' : 'en';
 const heroTitleLines = content.hero.title.split('\n');
 const formatHeroTitleLine = (line: string, index: number) =>
   !isArabic && index === 1 ? line.replace(/\s*(?:\u2014|\u2013|-|\u00e2\u20ac\u201d)\s*$/, '') : line;
+const formatMobileHeroTitleLine = (line: string, index: number) =>
+  !isArabic && index === 1
+    ? formatHeroTitleLine(line, index).replace(/\bspace\b/i, 's p a c e')
+    : !isArabic && index === 2
+      ? formatHeroTitleLine(line, index).replace(/\.$/, '')
+      : formatHeroTitleLine(line, index);
 const getImageAlt = (src: string, fallback: string) =>
   imageDescriptions[imageLanguage][src] ?? imageDescriptions[imageLanguage][src.replace(/\.webp$/, '.jpg')] ?? fallback;
 const getProjectImageAlt = (project: ProjectCard) =>
@@ -86,7 +92,14 @@ const getProjectImageAlt = (project: ProjectCard) =>
           heroTitleLines.map((line, index) => (
             <span class="hero-title-line">
               <span class:list={[index === 1 && 'hero-title-space-line', index === 2 && 'hero-title-seen-line']}>
-                {formatHeroTitleLine(line, index)}
+                {!isArabic && (index === 1 || index === 2) ? (
+                  <>
+                    <span class="hero-title-line-default">{formatHeroTitleLine(line, index)}</span>
+                    <span class="hero-title-line-mobile">{formatMobileHeroTitleLine(line, index)}</span>
+                  </>
+                ) : (
+                  formatHeroTitleLine(line, index)
+                )}
                 {!isArabic && index === 1 && <span class="hero-title-mobile-dash"> &mdash;</span>}
               </span>
             </span>

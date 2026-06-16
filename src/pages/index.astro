@@ -17,7 +17,9 @@ const selectedProjects = (await getCollection(
   title={`${SITE.name} - Cinematic Visual Production`}
   description="ArtistLens is a cinematic visual production portfolio by Yasser Al-Mulqi."
   lang={lang}
-  bodyClass="home-desktop"
+  bodyClass="home-page-shell home-desktop"
+  canonicalPath="/"
+  ogImage="/images/home/hero-car.jpg"
 >
   <HomepageDesktop selectedProjects={selectedProjects} />
 </BaseLayout>

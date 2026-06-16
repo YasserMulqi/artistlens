@@ -4,12 +4,14 @@ import Lenis from 'lenis';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isDesktopHome = document.body.classList.contains('home-desktop');
+const isHomePage = Boolean(document.querySelector('.home-page'));
 const isDesktopViewport = window.matchMedia('(min-width: 1024px)').matches;
+const isMobileViewport = window.matchMedia('(max-width: 1023px)').matches;
 const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
 const canRunDesktopMotion = isDesktopHome && isDesktopViewport && hasFinePointer && !reduceMotion;
 let lenis: Lenis | null = null;
 
-if (isDesktopHome && !canRunDesktopMotion) {
+if (isHomePage && !canRunDesktopMotion) {
   document.body.classList.add('home-motion-static');
 }
 
@@ -310,6 +312,172 @@ if (canRunDesktopMotion) {
   }
 
   ScrollTrigger.refresh();
+}
+
+if (isHomePage && isMobileViewport) {
+  const clampProgress = (value: number) => Math.min(1, Math.max(0, value));
+  const formatIndex = (value: number) => String(value).padStart(2, '0');
+  const homePage = document.querySelector<HTMLElement>('.home-page');
+  const isArabicMobileHome = homePage?.dataset.homeLang === 'ar';
+
+  if (!reduceMotion && homePage) {
+    const revealGroups = [
+      [
+        '.home-hero .home-motion-kicker',
+        '.home-hero .hero-title-line > span',
+        '.home-hero__content > p',
+        '.home-actions',
+        '.home-tags .home-tag',
+      ],
+      [
+        '.projects-heading .eyebrow',
+        '.projects-heading h2',
+        '.projects-heading .section-cue',
+      ],
+      [
+        '.frames-heading .eyebrow',
+        '.frames-heading h2',
+        '.frames-heading .section-cue',
+      ],
+      [
+        '.services-copy .eyebrow',
+        '.services-copy h2',
+        '.services-copy > p',
+        '.service-card header',
+        '.service-card h3',
+        '.service-card p',
+      ],
+      [
+        '.motion-heading .home-motion-kicker',
+        '.motion-heading h2',
+        '.motion-heading a',
+        '.reel-copy p',
+        '.reel-copy h3',
+        '.reel-block time',
+      ],
+      [
+        '.about-copy .eyebrow',
+        '.about-copy h2',
+        '.about-copy > p',
+        '.about-stats > div',
+      ],
+      [
+        '.contact-section > .eyebrow',
+        '.contact-section h2',
+        '.contact-section > p:not(.eyebrow)',
+        '.contact-actions',
+        '.contact-links',
+      ],
+      ['.home-mobile-footer p'],
+    ];
+
+    const revealRoots = gsap.utils
+      .toArray<HTMLElement>(
+        '.home-hero, .projects-section, .frames-section, .services-section, .motion-section, .about-section, .contact-section, .home-mobile-footer'
+      )
+      .map((root, index) => ({
+        root,
+        items: gsap.utils.toArray<HTMLElement>(revealGroups[index]?.join(',') ?? '', root),
+      }))
+      .filter(({ items }) => items.length > 0);
+
+    revealRoots.forEach(({ items }) => {
+      gsap.set(items, {
+        autoAlpha: 0,
+        y: 14,
+        force3D: true,
+      });
+    });
+
+    const mobileTextObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const revealRoot = revealRoots.find(({ root }) => root === entry.target);
+          if (!revealRoot) return;
+
+          const isServicesReveal = revealRoot.root.classList.contains('services-section');
+
+          gsap.to(revealRoot.items, {
+            autoAlpha: 1,
+            y: 0,
+            duration: isServicesReveal ? 0.48 : 0.62,
+            ease: 'power2.out',
+            stagger: isServicesReveal ? 0.035 : 0.055,
+            clearProps: 'transform,opacity,visibility',
+          });
+
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -6% 0px',
+      }
+    );
+
+    revealRoots.forEach(({ root }) => mobileTextObserver.observe(root));
+  }
+
+  const projectsRail = document.querySelector<HTMLElement>('.projects-rail');
+  const projectsTrack = document.querySelector<HTMLElement>('.projects-track');
+  const projectTiles = Array.from(document.querySelectorAll<HTMLElement>('.project-tile'));
+  const projectsCounter = document.querySelector<HTMLElement>('.projects-section .rail-progress strong');
+  const projectProgress = document.querySelector<HTMLElement>('.projects-section .rail-progress i');
+  const projectsSection = document.querySelector<HTMLElement>('.projects-section');
+
+  if (projectsRail && projectsTrack && projectTiles.length) {
+    const updateMobileProjects = () => {
+      const maxScroll = Math.max(1, projectsTrack.scrollWidth - projectsRail.clientWidth);
+      const progress = clampProgress(Math.abs(projectsRail.scrollLeft) / maxScroll);
+      const currentProject = Math.round(progress * (projectTiles.length - 1)) + 1;
+
+      if (projectsCounter) {
+        projectsCounter.textContent = `${formatIndex(currentProject)} — ${formatIndex(projectTiles.length)}`;
+      }
+
+      if (projectProgress) {
+        projectProgress.style.width = `${Math.max(8, (currentProject / projectTiles.length) * 100)}%`;
+      }
+
+      projectTiles.forEach((tile, index) => {
+        tile.classList.toggle('is-active', index === currentProject - 1);
+      });
+    };
+
+    projectsRail.addEventListener('scroll', updateMobileProjects, { passive: true });
+    window.addEventListener('resize', updateMobileProjects, { passive: true });
+
+    updateMobileProjects();
+  }
+
+  const framesDeck = document.querySelector<HTMLElement>('.frames-deck');
+  const frameLayers = Array.from(document.querySelectorAll<HTMLElement>('.frames-deck > .frame-layer'));
+  const frameCounter = document.querySelector<HTMLElement>('.frames-caption strong');
+  const frameDots = Array.from(document.querySelectorAll<HTMLElement>('.frame-dots span'));
+
+  if (framesDeck && frameLayers.length) {
+    if (isArabicMobileHome) {
+      const updateArabicFramesFromHorizontalScroll = () => {
+        const maxScroll = Math.max(1, framesDeck.scrollWidth - framesDeck.clientWidth);
+        const progress = clampProgress(Math.abs(framesDeck.scrollLeft) / maxScroll);
+        const currentFrame = Math.round(progress * (frameLayers.length - 1));
+
+        if (frameCounter) {
+          frameCounter.textContent = `${formatIndex(currentFrame + 1)} / ${formatIndex(frameLayers.length)}`;
+        }
+
+        frameDots.forEach((dot, index) => {
+          dot.classList.toggle('is-active', index === currentFrame);
+        });
+      };
+
+      framesDeck.addEventListener('scroll', updateArabicFramesFromHorizontalScroll, { passive: true });
+      window.addEventListener('resize', updateArabicFramesFromHorizontalScroll, { passive: true });
+      updateArabicFramesFromHorizontalScroll();
+    }
+  }
 }
 
 if (isDesktopHome) {

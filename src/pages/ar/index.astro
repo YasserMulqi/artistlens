@@ -1,41 +1,57 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import { useTranslations } from '../../i18n/ui';
+import HomepageDesktop from '../../components/HomepageDesktop.astro';
 import { SITE } from '../../consts';
+import { homepageAr } from '../../data/homepage';
 
 const lang = 'ar';
-const t = useTranslations(lang);
+const arabicTitles = [
+  ['منتجات', 'حضور المنتج'],
+  ['طعام', 'طعم بصري'],
+  ['داخلي', 'مساحات هادئة'],
+  ['موشن', 'حركة سينمائية'],
+  ['منتجات', 'تفاصيل العلامة'],
+  ['طعام', 'قائمة شهية'],
+  ['داخلي', 'ضوء ومساحة'],
+  ['موشن', 'ريل العلامة'],
+  ['منتجات', 'لقطة بطولية'],
+  ['طعام', 'ملمس ونكهة'],
+  ['داخلي', 'عمق المكان'],
+  ['موشن', 'إيقاع بصري'],
+];
 
-const projects = (
-  await getCollection('projects', (p) => p.data.language === lang && !p.data.draft)
-).sort((a, b) => a.data.order - b.data.order);
+const sourceProjects = (await getCollection(
+  'projects',
+  (project) => project.data.language === 'en' && !project.data.draft
+))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 12);
+
+const arabicProjectSlugs = new Set(
+  (await getCollection('projects', (project) => project.data.language === 'ar' && !project.data.draft)).map(
+    (project) => project.data.slug
+  )
+);
+
+const selectedProjectCards = sourceProjects.map((project, index) => ({
+  number: String(index + 1).padStart(2, '0'),
+  category: arabicTitles[index]?.[0] ?? 'مشروع',
+  title: arabicTitles[index]?.[1] ?? project.data.title,
+  href: arabicProjectSlugs.has(project.data.slug)
+    ? `/ar/projects/${project.data.slug}`
+    : `/projects/${project.data.slug}`,
+  image: project.data.cover ?? '/images/home/project-product.webp',
+}));
 ---
 
-<BaseLayout title={`${SITE.name} — إنتاج المحتوى والإظهار البصري`} lang={lang}>
-  <section class="section container">
-    <h1 class="display">{SITE.name}</h1>
-    <p class="muted" style="font-size: var(--text-lg); margin-block-start: var(--space-2); max-width: 50ch;">
-      {t('site.tagline')}
-    </p>
-  </section>
-
-  <section id="work" class="section container">
-    <h2 style="margin-block-end: var(--space-3);">{t('projects.title')}</h2>
-    <div class="project-grid">
-      {
-        projects.map((project) => (
-          <ProjectCard
-            lang={lang}
-            slug={project.data.slug}
-            title={project.data.title}
-            summary={project.data.summary}
-            category={project.data.category}
-            cover={project.data.cover}
-          />
-        ))
-      }
-    </div>
-  </section>
+<BaseLayout
+  title={`${SITE.name} - إنتاج بصري سينمائي`}
+  description="ArtistLens صفحة رئيسية سينمائية للتصوير والموشن من ياسر المُلقي."
+  lang={lang}
+  bodyClass="home-page-shell home-desktop"
+  canonicalPath="/ar/"
+  ogImage="/images/home/hero-car.jpg"
+>
+  <HomepageDesktop content={homepageAr} lang={lang} selectedProjectCards={selectedProjectCards} />
 </BaseLayout>

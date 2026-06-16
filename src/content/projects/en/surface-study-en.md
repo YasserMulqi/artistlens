@@ -6,9 +6,9 @@ client: "Demo Brand"
 year: 2025
 category: "PRODUCT"
 summary: "Placeholder product project for the homepage selected work rail."
-cover: "/images/home/project-product.jpg"
+cover: "/images/home/project-product.webp"
 gallery:
-  - "/images/home/project-product.jpg"
+  - "/images/home/project-product.webp"
 order: 10
 draft: false
 ---

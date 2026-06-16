@@ -7,10 +7,16 @@ interface Props {
 
 const { lang } = Astro.props;
 
-// Simple home-to-home toggle. A path-aware switch can be added later once
-// deep project URLs need to map across locales.
 const target: Lang = lang === 'ar' ? 'en' : 'ar';
-const href = target === 'ar' ? '/ar' : '/';
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const projectMatch = currentPath.match(/^\/(?:ar\/)?projects\/([^/]+)$/);
+const href = projectMatch
+  ? target === 'ar'
+    ? `/ar/projects/${projectMatch[1]}`
+    : `/projects/${projectMatch[1]}`
+  : target === 'ar'
+    ? '/ar'
+    : '/';
 ---
 
 <a class="lang-switch" href={href} hreflang={target} aria-label="Switch language">

@@ -18,10 +18,18 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const lang = 'en';
 const t = useTranslations(lang);
-const { title, summary, client, year, category, gallery } = project.data;
+const { title, summary, client, year, category, gallery, slug, cover } = project.data;
+const projectImage = cover ?? gallery[0] ?? '/images/home/hero-car.jpg';
 ---
 
-<BaseLayout title={`${title} — ArtistLens`} description={summary} lang={lang}>
+<BaseLayout
+  title={`${title} — ArtistLens`}
+  description={summary}
+  lang={lang}
+  canonicalPath={`/projects/${slug}`}
+  ogImage={projectImage}
+  ogType="article"
+>
   <article class="container">
     <header class="project-hero">
       <h1 class="display">{title}</h1>

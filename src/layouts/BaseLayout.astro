@@ -9,10 +9,26 @@ interface Props {
   description?: string;
   lang?: Lang;
   bodyClass?: string;
+  canonicalPath?: string;
+  ogImage?: string;
+  ogType?: string;
 }
 
-const { title, description = '', lang = 'en', bodyClass = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  lang = 'en',
+  bodyClass = '',
+  canonicalPath,
+  ogImage,
+  ogType = 'website',
+} = Astro.props;
 const dir = lang === 'ar' ? 'rtl' : 'ltr';
+const siteUrl = 'https://artistlens.com';
+const toAbsoluteUrl = (path: string) => new URL(path, siteUrl).toString();
+const canonicalUrl = toAbsoluteUrl(canonicalPath ?? Astro.url.pathname);
+const ogImageUrl = ogImage ? toAbsoluteUrl(ogImage) : undefined;
+const ogLocale = lang === 'ar' ? 'ar_SA' : 'en_US';
 ---
 
 <!doctype html>
@@ -21,6 +37,13 @@ const dir = lang === 'ar' ? 'rtl' : 'ltr';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={ogLocale} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>

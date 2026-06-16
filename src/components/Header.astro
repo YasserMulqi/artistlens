@@ -10,19 +10,44 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const isEnglish = lang === 'en';
+const homePath = isEnglish ? '/' : '/ar/';
+const menuLabel = isEnglish ? 'Menu' : 'القائمة';
+const closeLabel = isEnglish ? 'Close' : 'إغلاق';
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const projectMatch = currentPath.match(/^\/(?:ar\/)?projects\/([^/]+)$/);
+const mobileLanguageHref = projectMatch
+  ? isEnglish
+    ? `/ar/projects/${projectMatch[1]}`
+    : `/projects/${projectMatch[1]}`
+  : isEnglish
+    ? '/ar/'
+    : '/';
+const mobileLanguageLabel = isEnglish ? 'العربية' : 'English';
+const mobileLinks = isEnglish
+  ? [
+      { label: 'Photography', href: '/#services' },
+      { label: 'Motion', href: '/#motion' },
+      { label: 'Projects', href: '/#projects' },
+      { label: 'About', href: '/#about' },
+      { label: 'Contact', href: '/#contact' },
+      { label: 'Start a Project', href: '/#contact', cta: true },
+      { label: mobileLanguageLabel, href: mobileLanguageHref },
+    ]
+  : [
+      { label: 'التصوير', href: '/ar/#services' },
+      { label: 'موشن', href: '/ar/#motion' },
+      { label: 'المشاريع', href: '/ar/#projects' },
+      { label: 'نبذة', href: '/ar/#about' },
+      { label: 'تواصل', href: '/ar/#contact' },
+      { label: 'ابدأ مشروعك', href: '/ar/#contact', cta: true },
+      { label: mobileLanguageLabel, href: mobileLanguageHref },
+    ];
+const drawerId = `mobile-menu-${lang}`;
 ---
 
 <header class="site-header">
-  <a class="brand" href={localizedPath(lang, '/')} aria-label="ArtistLens home">
-    {
-      isEnglish ? (
-        <img class="brand-figma" src="/images/figma/artistlens-logo.svg" alt="ArtistLens" />
-      ) : (
-        <>
-          <span class="brand-artist">ARTIST</span><span class="brand-lens">LENS</span>
-        </>
-      )
-    }
+  <a class="brand" href={homePath} aria-label="ArtistLens home">
+    <img class="brand-figma" src="/images/figma/artistlens-logo.svg" alt="ArtistLens" />
   </a>
   <nav>
     {
@@ -46,4 +71,69 @@ const isEnglish = lang === 'en';
     }
     <LangSwitch lang={lang} />
   </nav>
+
+  <button
+    class="mobile-menu-toggle"
+    type="button"
+    aria-controls={drawerId}
+    aria-expanded="false"
+    data-mobile-menu-toggle
+  >
+    {menuLabel}
+  </button>
+
+  <div class="mobile-menu-shell" hidden data-mobile-menu>
+    <button class="mobile-menu-backdrop" type="button" aria-label={closeLabel} data-mobile-menu-close></button>
+    <aside class="mobile-menu-drawer" id={drawerId} role="dialog" aria-modal="true" aria-label={menuLabel}>
+      <button class="mobile-menu-close" type="button" data-mobile-menu-close>{closeLabel}</button>
+      <nav class="mobile-menu-links" aria-label={menuLabel}>
+        {
+          mobileLinks.map((link) => (
+            <a class={link.cta ? 'mobile-menu-cta' : ''} href={link.href}>{link.label}</a>
+          ))
+        }
+      </nav>
+    </aside>
+  </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const headers = document.querySelectorAll('.site-header');
+
+    headers.forEach((header) => {
+      const toggle = header.querySelector('[data-mobile-menu-toggle]');
+      const menu = header.querySelector('[data-mobile-menu]');
+      const drawer = header.querySelector('.mobile-menu-drawer');
+      const closeTargets = header.querySelectorAll('[data-mobile-menu-close]');
+
+      if (!toggle || !menu || !drawer || toggle.dataset.bound === 'true') return;
+
+      const openMenu = () => {
+        menu.hidden = false;
+        toggle.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('mobile-menu-is-open');
+        drawer.querySelector('a, button')?.focus();
+      };
+
+      const closeMenu = () => {
+        menu.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('mobile-menu-is-open');
+        toggle.focus();
+      };
+
+      toggle.dataset.bound = 'true';
+      toggle.addEventListener('click', () => {
+        if (menu.hidden) openMenu();
+        else closeMenu();
+      });
+
+      closeTargets.forEach((target) => target.addEventListener('click', closeMenu));
+      drawer.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !menu.hidden) closeMenu();
+      });
+    });
+  })();
+</script>

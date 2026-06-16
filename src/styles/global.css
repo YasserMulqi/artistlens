@@ -1403,6 +1403,11 @@ h3 {
     box-shadow: -20px 0 60px rgba(0, 0, 0, 0.38);
   }
 
+  html:not([dir='rtl']) .home-page-shell .mobile-menu-drawer {
+    width: 50vw;
+    background: rgba(14, 14, 16, 0.86);
+  }
+
   .home-page-shell .mobile-menu-close {
     display: inline-flex;
     align-items: center;
@@ -1465,6 +1470,8 @@ h3 {
   html:not([dir='rtl']) .home-page-shell .mobile-menu-links a {
     width: 100%;
     text-align: right;
+    font-size: 20px;
+    font-weight: 300;
   }
 
   .home-page-shell .mobile-menu-links a {
@@ -1498,8 +1505,7 @@ h3 {
   }
 
   html:not([dir='rtl']) .home-page-shell .mobile-menu-links .mobile-menu-cta {
-    justify-content: center;
-    text-align: center;
+    display: none;
   }
 
   .home-page {

@@ -319,6 +319,7 @@ if (isHomePage && isMobileViewport) {
   const formatIndex = (value: number) => String(value).padStart(2, '0');
   const homePage = document.querySelector<HTMLElement>('.home-page');
   const isArabicMobileHome = homePage?.dataset.homeLang === 'ar';
+  const isEnglishMobileHome = homePage?.dataset.homeLang === 'en';
 
   if (!reduceMotion && homePage) {
     const revealGroups = [
@@ -389,6 +390,43 @@ if (isHomePage && isMobileViewport) {
       });
     });
 
+    const mobileHeroReveal = isEnglishMobileHome
+      ? revealRoots.find(({ root }) => root.classList.contains('home-hero'))
+      : undefined;
+
+    if (mobileHeroReveal) {
+      const heroImage = mobileHeroReveal.root.querySelector<HTMLElement>('.home-hero__media img');
+
+      if (heroImage) {
+        gsap.set(heroImage, {
+          scale: 1.15,
+          transformOrigin: 'center center',
+          force3D: true,
+        });
+
+        gsap
+          .timeline({ delay: 0.08 })
+          .to(heroImage, {
+            scale: 1,
+            duration: 1.1,
+            ease: 'power2.inOut',
+            clearProps: 'transform',
+          })
+          .to(
+            mobileHeroReveal.items,
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 1.24,
+              ease: 'power2.out',
+              stagger: 0.11,
+              clearProps: 'transform,opacity,visibility',
+            },
+            '+=0.02'
+          );
+      }
+    }
+
     const mobileTextObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -417,7 +455,9 @@ if (isHomePage && isMobileViewport) {
       }
     );
 
-    revealRoots.forEach(({ root }) => mobileTextObserver.observe(root));
+    revealRoots
+      .filter(({ root }) => root !== mobileHeroReveal?.root)
+      .forEach(({ root }) => mobileTextObserver.observe(root));
   }
 
   const projectsRail = document.querySelector<HTMLElement>('.projects-rail');

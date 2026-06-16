@@ -1556,6 +1556,10 @@ h3 {
     height: 800px;
   }
 
+  .home-page[data-home-lang='en'] .home-hero {
+    height: clamp(700px, 100svh, 760px);
+  }
+
   .home-hero__media::before {
     height: 180px;
   }
@@ -1641,7 +1645,7 @@ h3 {
   .home-page[data-home-lang='en'] .home-hero__content > p {
     position: absolute;
     inset-inline: 0;
-    inset-block-end: 32px;
+    inset-block-end: 72px;
     margin-block-start: 0;
   }
 

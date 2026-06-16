@@ -73,7 +73,13 @@ const drawerId = `mobile-menu-${lang}`;
   </nav>
 
   <div class="mobile-header-actions">
-    {isEnglish && <a class="mobile-language-shortcut" href="/ar/" aria-label="العربية" lang="ar" dir="rtl">ع</a>}
+    {
+      isEnglish && (
+        <a class="mobile-language-shortcut" href="/ar/" aria-label="العربية" lang="ar" dir="rtl">
+          <img src="/images/ui/arabic-shortcut.png" alt="" aria-hidden="true" />
+        </a>
+      )
+    }
     <button
       class="mobile-menu-toggle"
       type="button"

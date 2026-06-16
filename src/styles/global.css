@@ -1338,7 +1338,7 @@ h3 {
   .home-page-shell .mobile-header-actions {
     display: inline-flex;
     align-items: center;
-    gap: 16px;
+    gap: 22px;
     margin-inline-start: auto;
   }
 
@@ -1346,19 +1346,27 @@ h3 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 28px;
+    width: 32px;
+    min-width: 32px;
     min-height: 36px;
-    color: rgba(242, 239, 233, 0.72);
-    font-family: var(--font-arabic);
-    font-size: 14px;
-    font-weight: 500;
     line-height: 1;
-    transition: color 180ms ease;
+    opacity: 0.82;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
   }
 
   .home-page-shell .mobile-language-shortcut:hover,
   .home-page-shell .mobile-language-shortcut:focus-visible {
-    color: var(--color-accent);
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+
+  .home-page-shell .mobile-language-shortcut img {
+    display: block;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
   }
 
   .home-page-shell .mobile-menu-toggle {

@@ -399,7 +399,7 @@ if (isHomePage && isMobileViewport) {
 
       if (heroImage) {
         gsap.set(heroImage, {
-          scale: 1.15,
+          scale: 1.2,
           transformOrigin: 'center center',
           force3D: true,
         });
@@ -408,7 +408,7 @@ if (isHomePage && isMobileViewport) {
           .timeline({ delay: 0.08 })
           .to(heroImage, {
             scale: 1,
-            duration: 1.1,
+            duration: 2.5,
             ease: 'power2.inOut',
             clearProps: 'transform',
           })
@@ -422,7 +422,7 @@ if (isHomePage && isMobileViewport) {
               stagger: 0.11,
               clearProps: 'transform,opacity,visibility',
             },
-            '+=0.02'
+            1.5
           );
       }
     }

@@ -1822,6 +1822,18 @@ h3 {
     scroll-snap-align: start;
   }
 
+  .home-page[data-home-lang='en'] .projects-rail,
+  .home-page[data-home-lang='en'] .projects-track {
+    height: auto;
+  }
+
+  .home-page[data-home-lang='en'] .project-tile {
+    width: calc(100vw - 48px);
+    height: auto;
+    flex-basis: calc(100vw - 48px);
+    aspect-ratio: 4 / 6;
+  }
+
   .projects-track {
     width: max-content;
     height: 360px;

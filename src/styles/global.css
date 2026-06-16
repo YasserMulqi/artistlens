@@ -1807,6 +1807,8 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .projects-heading .section-cue {
+    display: flex;
+    justify-content: flex-end;
     width: 100%;
     margin-block-start: 8px;
     text-align: right;

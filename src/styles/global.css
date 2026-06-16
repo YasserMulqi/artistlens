@@ -1795,7 +1795,9 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .projects-heading {
-    display: block;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 
   .home-page[data-home-lang='en'] .projects-heading .eyebrow {
@@ -1807,7 +1809,7 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .projects-heading .section-cue {
-    margin-block-start: 8px;
+    margin-block-start: 0;
   }
 
   .projects-rail {

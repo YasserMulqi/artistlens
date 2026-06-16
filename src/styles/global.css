@@ -1638,6 +1638,13 @@ h3 {
     line-height: 23.7px;
   }
 
+  .home-page[data-home-lang='en'] .home-hero__content > p {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 32px;
+    margin-block-start: 0;
+  }
+
   .home-actions {
     display: grid;
     grid-template-columns: 1fr;

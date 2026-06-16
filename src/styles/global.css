@@ -1814,6 +1814,14 @@ h3 {
     text-align: right;
   }
 
+  .home-page[data-home-lang='en'] .projects-heading .mobile-projects-cue-text {
+    display: inline-flex;
+  }
+
+  .home-page[data-home-lang='en'] .projects-heading .mobile-projects-cue-letter {
+    display: inline-block;
+  }
+
   .projects-rail {
     width: calc(100vw - 24px);
     height: 360px;

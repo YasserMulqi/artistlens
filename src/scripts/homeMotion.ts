@@ -372,6 +372,10 @@ if (isHomePage && isMobileViewport) {
       ['.home-mobile-footer p'],
     ];
 
+    if (isEnglishMobileHome) {
+      revealGroups[1] = [];
+    }
+
     const revealRoots = gsap.utils
       .toArray<HTMLElement>(
         '.home-hero, .projects-section, .frames-section, .services-section, .motion-section, .about-section, .contact-section, .home-mobile-footer'
@@ -424,6 +428,84 @@ if (isHomePage && isMobileViewport) {
             },
             1.5
           );
+      }
+    }
+
+    if (isEnglishMobileHome) {
+      const projectsHeading = document.querySelector<HTMLElement>('.projects-heading');
+      const projectsTitle = projectsHeading?.querySelector<HTMLElement>('h2');
+      const projectsCue = projectsHeading?.querySelector<HTMLElement>('.section-cue');
+      const projectsCueArrow = projectsCue?.querySelector<HTMLElement>('span');
+
+      if (projectsHeading && projectsTitle && projectsCue && projectsCueArrow) {
+        const cueText = Array.from(projectsCue.childNodes)
+          .filter((node) => node.nodeType === Node.TEXT_NODE)
+          .map((node) => node.textContent?.trim() ?? '')
+          .join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const textWrap = document.createElement('span');
+        textWrap.className = 'mobile-projects-cue-text';
+        textWrap.setAttribute('aria-hidden', 'true');
+
+        cueText.split('').forEach((letter) => {
+          const letterSpan = document.createElement('span');
+          letterSpan.className = 'mobile-projects-cue-letter';
+          letterSpan.textContent = letter === ' ' ? '\u00a0' : letter;
+          textWrap.append(letterSpan);
+        });
+
+        projectsCue.setAttribute('aria-label', `${cueText} ${projectsCueArrow.textContent?.trim() ?? ''}`.trim());
+        projectsCue.replaceChildren(textWrap, projectsCueArrow);
+
+        const cueLetters = Array.from(textWrap.querySelectorAll<HTMLElement>('.mobile-projects-cue-letter'));
+
+        gsap.set(projectsTitle, { autoAlpha: 0, y: 18, force3D: true });
+        gsap.set(cueLetters, { autoAlpha: 0, y: 8, force3D: true });
+        gsap.set(projectsCueArrow, { autoAlpha: 0, x: -4, force3D: true });
+
+        const projectsHeadingObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+
+              gsap
+                .timeline()
+                .to(projectsTitle, {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.95,
+                  ease: 'power3.out',
+                })
+                .to(
+                  cueLetters,
+                  {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.28,
+                    ease: 'power2.out',
+                    stagger: 0.035,
+                  },
+                  '>-0.18'
+                )
+                .to(projectsCueArrow, {
+                  autoAlpha: 1,
+                  x: 0,
+                  duration: 0.28,
+                  ease: 'power2.out',
+                  clearProps: 'transform,opacity,visibility',
+                });
+
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            threshold: 0.35,
+            rootMargin: '0px 0px -8% 0px',
+          }
+        );
+
+        projectsHeadingObserver.observe(projectsHeading);
       }
     }
 

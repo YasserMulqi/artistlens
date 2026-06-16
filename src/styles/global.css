@@ -1571,9 +1571,30 @@ h3 {
     );
   }
 
+  .home-page[data-home-lang='en'] .home-hero__media::before {
+    height: 150px;
+    background: linear-gradient(180deg, rgba(14, 14, 16, 0.82), rgba(14, 14, 16, 0));
+  }
+
+  .home-page[data-home-lang='en'] .home-hero__media::after {
+    height: 620px;
+    background: linear-gradient(
+      180deg,
+      rgba(14, 14, 16, 0.02) 0%,
+      rgba(14, 14, 16, 0.36) 18%,
+      rgba(14, 14, 16, 0.66) 58%,
+      #0e0e10 100%
+    );
+  }
+
   .home-hero__media img {
     object-position: center;
     filter: brightness(0.55) saturate(0.74);
+  }
+
+  .home-page[data-home-lang='en'] .home-hero__media img {
+    object-position: center 42%;
+    filter: brightness(0.6) saturate(0.76);
   }
 
   .home-hero__content {
@@ -1583,7 +1604,7 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .home-hero__content {
-    inset-block-start: 255px;
+    inset-block-start: 165px;
   }
 
   .home-page[data-home-lang='ar'] .home-hero__content {

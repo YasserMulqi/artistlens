@@ -1682,11 +1682,21 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .home-hero .hero-title-space-line {
-    letter-spacing: 0.22em;
+    display: block;
+    width: min(100%, 304px);
+    text-align: justify;
+    text-align-last: justify;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
   }
 
   .home-page[data-home-lang='en'] .home-hero .hero-title-seen-line {
-    letter-spacing: 0.04em;
+    display: block;
+    width: min(100%, 304px);
+    text-align: justify;
+    text-align-last: justify;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
   }
 
   .home-hero__content > p {

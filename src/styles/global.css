@@ -1794,6 +1794,22 @@ h3 {
     line-height: 36.04px;
   }
 
+  .home-page[data-home-lang='en'] .projects-heading {
+    display: block;
+  }
+
+  .home-page[data-home-lang='en'] .projects-heading .eyebrow {
+    display: none;
+  }
+
+  .home-page[data-home-lang='en'] .projects-heading h2 {
+    white-space: nowrap;
+  }
+
+  .home-page[data-home-lang='en'] .projects-heading .section-cue {
+    margin-block-start: 8px;
+  }
+
   .projects-rail {
     width: calc(100vw - 24px);
     height: 360px;

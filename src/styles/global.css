@@ -1608,6 +1608,13 @@ h3 {
     inset-block-end: 28px;
   }
 
+  /* TEMP: Mobile EN Hero actions hidden for visual review. */
+  .home-page[data-home-lang='en'] .home-hero .home-motion-kicker,
+  .home-page[data-home-lang='en'] .home-hero .home-actions,
+  .home-page[data-home-lang='en'] .home-hero .home-tags {
+    display: none;
+  }
+
   .home-page[data-home-lang='ar'] .home-hero__content {
     inset-block-start: 286px;
   }

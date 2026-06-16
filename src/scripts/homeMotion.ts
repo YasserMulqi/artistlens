@@ -409,7 +409,7 @@ if (isHomePage && isMobileViewport) {
           .to(heroImage, {
             scale: 1,
             duration: 2.5,
-            ease: 'power2.inOut',
+            ease: 'power3.out',
             clearProps: 'transform',
           })
           .to(

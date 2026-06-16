@@ -1677,6 +1677,18 @@ h3 {
     line-height: 1.08;
   }
 
+  .home-page[data-home-lang='en'] .home-hero .hero-title-mobile-dash {
+    display: none;
+  }
+
+  .home-page[data-home-lang='en'] .home-hero .hero-title-space-line {
+    letter-spacing: 0.22em;
+  }
+
+  .home-page[data-home-lang='en'] .home-hero .hero-title-seen-line {
+    letter-spacing: 0.04em;
+  }
+
   .home-hero__content > p {
     width: auto;
     margin-block-start: 18px;
@@ -1687,7 +1699,7 @@ h3 {
   .home-page[data-home-lang='en'] .home-hero__content > p {
     position: absolute;
     inset-inline: 0;
-    inset-block-end: 72px;
+    inset-block-end: 48px;
     margin-block-start: 0;
   }
 

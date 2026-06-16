@@ -72,15 +72,18 @@ const drawerId = `mobile-menu-${lang}`;
     <LangSwitch lang={lang} />
   </nav>
 
-  <button
-    class="mobile-menu-toggle"
-    type="button"
-    aria-controls={drawerId}
-    aria-expanded="false"
-    data-mobile-menu-toggle
-  >
-    {menuLabel}
-  </button>
+  <div class="mobile-header-actions">
+    {isEnglish && <a class="mobile-language-shortcut" href="/ar/" aria-label="العربية" lang="ar" dir="rtl">ع</a>}
+    <button
+      class="mobile-menu-toggle"
+      type="button"
+      aria-controls={drawerId}
+      aria-expanded="false"
+      data-mobile-menu-toggle
+    >
+      {menuLabel}
+    </button>
+  </div>
 
   <div class="mobile-menu-shell" hidden data-mobile-menu>
     <button class="mobile-menu-backdrop" type="button" aria-label={closeLabel} data-mobile-menu-close></button>

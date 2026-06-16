@@ -1605,6 +1605,7 @@ h3 {
 
   .home-page[data-home-lang='en'] .home-hero__content {
     inset-block-start: 165px;
+    inset-block-end: 28px;
   }
 
   .home-page[data-home-lang='ar'] .home-hero__content {
@@ -1637,6 +1638,13 @@ h3 {
     margin-block-start: 18px;
   }
 
+  .home-page[data-home-lang='en'] .home-actions {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 49px;
+    margin-block-start: 0;
+  }
+
   .home-actions .button {
     width: 100%;
   }
@@ -1645,6 +1653,13 @@ h3 {
     flex-wrap: wrap;
     gap: 8px;
     margin-block-start: 18px;
+  }
+
+  .home-page[data-home-lang='en'] .home-tags {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    margin-block-start: 0;
   }
 
   .home-tag {

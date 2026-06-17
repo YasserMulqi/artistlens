@@ -173,7 +173,10 @@ const getProjectImageAlt = (project: ProjectCard) =>
     <div class="figma-section__heading frames-heading">
       <div>
         <p class="eyebrow">{content.frames.eyebrow}</p>
-        <h2 id="frames-title">{content.frames.title}</h2>
+        <h2 id="frames-title">
+          <span class="frames-title-default">{content.frames.title}</span>
+          {!isArabic && <span class="frames-title-mobile-en">Selected Frames</span>}
+        </h2>
       </div>
       <p class="section-cue">{content.frames.cue} <span>↓</span></p>
     </div>

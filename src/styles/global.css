@@ -2216,7 +2216,7 @@ h3 {
   .home-motion-static .home-page[data-home-lang='en'] .frames-deck > .frame-layer,
   .home-motion-static .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(n) {
     position: sticky;
-    top: clamp(132px, 20svh, 164px);
+    top: clamp(117px, calc(20svh - 15px), 149px);
     width: 100%;
     height: auto;
     aspect-ratio: 9 / 16;

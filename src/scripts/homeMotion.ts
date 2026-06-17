@@ -442,9 +442,9 @@ if (isHomePage && isMobileViewport) {
           gsap.to(revealRoot.items, {
             autoAlpha: 1,
             y: 0,
-            duration: isEnglishProjectsReveal ? 1.05 : isServicesReveal ? 0.48 : 0.62,
+            duration: isEnglishProjectsReveal ? 2.1 : isServicesReveal ? 0.48 : 0.62,
             ease: 'power2.out',
-            stagger: isEnglishProjectsReveal ? 0.11 : isServicesReveal ? 0.035 : 0.055,
+            stagger: isEnglishProjectsReveal ? 0.22 : isServicesReveal ? 0.035 : 0.055,
             clearProps: 'transform,opacity,visibility',
           });
 

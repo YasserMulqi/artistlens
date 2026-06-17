@@ -212,6 +212,7 @@ const getProjectImageAlt = (project: ProjectCard) =>
   <section id="services" class="figma-section services-section" aria-labelledby="services-title">
     <div class="services-copy">
       <p class="eyebrow">{content.services.eyebrow}</p>
+      {!isArabic && <h2 class="mobile-en-services-title">Specialist</h2>}
       <h2 id="services-title">{content.services.title}</h2>
       <p>{content.services.summary}</p>
     </div>
@@ -291,7 +292,7 @@ const getProjectImageAlt = (project: ProjectCard) =>
             ) : (
               <MotionWord />
             )
-          }{!isArabic && ` ${content.motion.titleSuffix}`}
+          }{!isArabic && <span class="motion-title-suffix"> {content.motion.titleSuffix}</span>}
         </h2>
       </div>
       <a href="#contact">{content.motion.cta}</a>
@@ -315,7 +316,9 @@ const getProjectImageAlt = (project: ProjectCard) =>
   <section id="about" class="figma-section about-section" aria-labelledby="about-title">
     <img class="about-portrait" src={content.about.image} alt={content.about.imageAlt} loading="lazy" />
     <div class="about-copy">
+      {!isArabic && <p class="eyebrow mobile-en-about-eyebrow">About</p>}
       <p class="eyebrow">{content.about.eyebrow}</p>
+      {!isArabic && <h2 class="mobile-en-about-title">Hi, I'm Yaser, the eye behind ArtistLens.</h2>}
       <h2 id="about-title">{content.about.title}</h2>
       <p>{content.about.body}</p>
       <div class="about-stats">

@@ -2231,6 +2231,18 @@ h3 {
     margin-block-start: clamp(52px, 7svh, 64px);
   }
 
+  .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(n + 2)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 3;
+    height: 1px;
+    background: #000;
+    pointer-events: none;
+  }
+
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(1) {
     z-index: 1;
   }
@@ -2245,11 +2257,6 @@ h3 {
 
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(4) {
     z-index: 4;
-  }
-
-  .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(4) .frame-plate > img {
-    top: -4px;
-    height: calc(100% + 8px);
   }
 
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(5) {

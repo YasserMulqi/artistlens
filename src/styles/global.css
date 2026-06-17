@@ -2210,7 +2210,7 @@ h3 {
     top: clamp(132px, 20svh, 164px);
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 6;
+    aspect-ratio: 9 / 16;
     margin-block-start: 0;
     overflow: hidden;
     border-radius: 8px;

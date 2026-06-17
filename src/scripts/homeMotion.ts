@@ -469,8 +469,10 @@ if (isHomePage && isMobileViewport) {
   const projectProgress = document.querySelector<HTMLElement>('.projects-section .rail-progress i');
   const projectsSection = document.querySelector<HTMLElement>('.projects-section');
 
-  if (!reduceMotion && isEnglishMobileHome && projectTiles[0]) {
+  if (!reduceMotion && isEnglishMobileHome && projectsRail && projectTiles[0]) {
     const firstProjectTile = projectTiles[0];
+    const unlockProjectsRail = () => projectsRail.classList.remove('projects-rail-locked');
+    const lockProjectsRail = () => projectsRail.classList.add('projects-rail-locked');
 
     gsap.registerPlugin(ScrollTrigger);
     gsap.set(firstProjectTile, {
@@ -491,6 +493,13 @@ if (isHomePage && isMobileViewport) {
         },
         scrub: 0.7,
         invalidateOnRefresh: true,
+        onEnter: lockProjectsRail,
+        onEnterBack: lockProjectsRail,
+        onLeave: unlockProjectsRail,
+        onLeaveBack: unlockProjectsRail,
+        onUpdate: (self) => {
+          if (self.progress >= 1) unlockProjectsRail();
+        },
       },
     });
   }

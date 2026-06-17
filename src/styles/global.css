@@ -2229,7 +2229,6 @@ h3 {
 
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(n + 2) {
     margin-block-start: clamp(52px, 7svh, 64px);
-    transform: translateY(var(--mobile-frame-entry-gap, 0));
   }
 
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(1) {

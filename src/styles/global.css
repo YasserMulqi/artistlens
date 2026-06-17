@@ -2247,6 +2247,11 @@ h3 {
     z-index: 4;
   }
 
+  .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(4) .frame-plate > img {
+    top: -1px;
+    height: calc(100% + 2px);
+  }
+
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(5) {
     z-index: 5;
   }

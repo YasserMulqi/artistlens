@@ -1834,12 +1834,6 @@ h3 {
     -webkit-overflow-scrolling: touch;
   }
 
-  .home-page[data-home-lang='en'] .projects-rail.projects-rail-locked {
-    overflow-x: hidden;
-    touch-action: pan-y;
-    overscroll-behavior-x: contain;
-  }
-
   .home-page[data-home-lang='ar'] .project-tile {
     scroll-snap-align: start;
   }

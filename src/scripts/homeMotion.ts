@@ -566,13 +566,24 @@ if (isHomePage && isMobileViewport) {
             framesHeading.style.setProperty('--mobile-frames-header-y', `${exitY}px`);
           }
 
+          const getDocumentTop = (element: HTMLElement) => {
+            let top = 0;
+            let current: HTMLElement | null = element;
+
+            while (current) {
+              top += current.offsetTop;
+              current = current.offsetParent as HTMLElement | null;
+            }
+
+            return top;
+          };
+
           incomingFrames.forEach(({ layer }) => {
             const layerStyle = window.getComputedStyle(layer);
             const frameStickyTop = Number.parseFloat(layerStyle.top) || 132;
-            const currentEntryGap = Number.parseFloat(layerStyle.getPropertyValue('--mobile-frame-entry-gap')) || 0;
-            const baseLayerTop = layer.getBoundingClientRect().top - currentEntryGap;
-            const distanceToSticky = Math.max(0, baseLayerTop - frameStickyTop);
-            const entryGap = 10 * clampProgress(distanceToSticky / 160);
+            const stickyStart = getDocumentTop(layer) - frameStickyTop;
+            const stickyProgress = clampProgress((window.scrollY - stickyStart) / 160);
+            const entryGap = 10 * (1 - stickyProgress);
 
             layer.style.setProperty('--mobile-frame-entry-gap', `${entryGap}px`);
           });

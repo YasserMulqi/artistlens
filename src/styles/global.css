@@ -2187,7 +2187,7 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .frames-section {
-    padding-block-start: 30px;
+    padding-block-start: 10px;
     overflow: visible;
   }
 

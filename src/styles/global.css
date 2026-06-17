@@ -2024,7 +2024,7 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .frames-heading .section-cue {
-    display: flex;
+    display: none;
     justify-content: flex-end;
     width: 100%;
     margin-block-start: 8px;

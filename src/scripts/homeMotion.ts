@@ -549,6 +549,31 @@ if (isHomePage && isMobileViewport) {
   const frameDots = Array.from(document.querySelectorAll<HTMLElement>('.frame-dots span'));
 
   if (framesDeck && frameLayers.length) {
+    if (isEnglishMobileHome) {
+      const framesSection = document.querySelector<HTMLElement>('.frames-section');
+      const framesHeading = document.querySelector<HTMLElement>('.frames-heading');
+      const lastFrame = frameLayers[frameLayers.length - 1];
+
+      if (framesSection && framesHeading && lastFrame) {
+        const syncMobileFramesHeadingExit = () => {
+          const lastFrameStyle = window.getComputedStyle(lastFrame);
+          const frameStickyTop = Number.parseFloat(lastFrameStyle.top) || 132;
+          const sectionTop = window.scrollY + framesSection.getBoundingClientRect().top;
+          const exitStart =
+            sectionTop + framesDeck.offsetTop + lastFrame.offsetTop - frameStickyTop;
+          const exitDistance = Math.max(window.innerHeight * 0.28, framesHeading.offsetHeight + 56);
+          const exitProgress = clampProgress((window.scrollY - exitStart) / exitDistance);
+          const exitY = -exitProgress * (framesHeading.offsetHeight + 56);
+
+          framesHeading.style.setProperty('--mobile-frames-header-y', `${exitY}px`);
+        };
+
+        window.addEventListener('scroll', syncMobileFramesHeadingExit, { passive: true });
+        window.addEventListener('resize', syncMobileFramesHeadingExit, { passive: true });
+        syncMobileFramesHeadingExit();
+      }
+    }
+
     if (isArabicMobileHome) {
       const updateArabicFramesFromHorizontalScroll = () => {
         const maxScroll = Math.max(1, framesDeck.scrollWidth - framesDeck.clientWidth);

@@ -486,8 +486,8 @@ if (isHomePage && isMobileViewport) {
         trigger: firstProjectTile,
         start: 'top bottom',
         end: () => {
-          const seventyFivePercentVisible = window.innerHeight - firstProjectTile.offsetHeight * 0.75;
-          return `top ${Math.max(0, seventyFivePercentVisible)}px`;
+          const eightyPercentVisible = window.innerHeight - firstProjectTile.offsetHeight * 0.8;
+          return `top ${Math.max(0, eightyPercentVisible)}px`;
         },
         scrub: 0.7,
         invalidateOnRefresh: true,

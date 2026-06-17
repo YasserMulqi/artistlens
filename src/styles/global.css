@@ -1847,6 +1847,10 @@ h3 {
     height: auto;
   }
 
+  .home-page[data-home-lang='en'] .projects-track {
+    gap: 28px;
+  }
+
   .home-page[data-home-lang='en'] .project-tile {
     width: calc(100vw - 48px);
     height: auto;

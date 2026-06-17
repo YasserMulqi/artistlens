@@ -1328,6 +1328,10 @@ h3 {
 }
 
 @media (max-width: 1023px) {
+  html:has(.home-page[data-home-lang='en']) {
+    scroll-snap-type: y proximity;
+  }
+
   .home-page-shell {
     background: var(--color-bg);
   }
@@ -1837,6 +1841,9 @@ h3 {
     height: auto;
     padding-block-start: 48px;
     padding-block-end: 22px;
+    scroll-margin-block-start: 76px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .projects-heading h2 {
@@ -1890,6 +1897,7 @@ h3 {
 
   .home-page[data-home-lang='en'] .project-tile {
     scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .home-page[data-home-lang='en'] .projects-rail,
@@ -2179,6 +2187,7 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .frames-section {
+    padding-block-start: 30px;
     overflow: visible;
   }
 

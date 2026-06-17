@@ -552,19 +552,37 @@ if (isHomePage && isMobileViewport) {
     if (isEnglishMobileHome) {
       const framesHeading = document.querySelector<HTMLElement>('.frames-heading');
       const lastFrame = frameLayers[frameLayers.length - 1];
+      const incomingFrames = frameLayers
+        .slice(1)
+        .map((layer) => ({
+          layer,
+          plate: layer.querySelector<HTMLElement>('.frame-plate'),
+        }))
+        .filter((frame): frame is { layer: HTMLElement; plate: HTMLElement } => Boolean(frame.plate));
 
-      if (framesHeading && lastFrame) {
-        const syncMobileFramesHeadingExit = () => {
-          const lastFrameStyle = window.getComputedStyle(lastFrame);
-          const frameStickyTop = Number.parseFloat(lastFrameStyle.top) || 132;
-          const exitY = Math.min(0, lastFrame.getBoundingClientRect().top - frameStickyTop);
+      if ((framesHeading && lastFrame) || incomingFrames.length) {
+        const syncMobileFramesStack = () => {
+          if (framesHeading && lastFrame) {
+            const lastFrameStyle = window.getComputedStyle(lastFrame);
+            const frameStickyTop = Number.parseFloat(lastFrameStyle.top) || 132;
+            const exitY = Math.min(0, lastFrame.getBoundingClientRect().top - frameStickyTop);
 
-          framesHeading.style.setProperty('--mobile-frames-header-y', `${exitY}px`);
+            framesHeading.style.setProperty('--mobile-frames-header-y', `${exitY}px`);
+          }
+
+          incomingFrames.forEach(({ layer, plate }) => {
+            const layerStyle = window.getComputedStyle(layer);
+            const frameStickyTop = Number.parseFloat(layerStyle.top) || 132;
+            const distanceToSticky = Math.max(0, layer.getBoundingClientRect().top - frameStickyTop);
+            const entryGap = 4 * clampProgress(distanceToSticky / 96);
+
+            plate.style.setProperty('--mobile-frame-entry-gap', `${entryGap}px`);
+          });
         };
 
-        window.addEventListener('scroll', syncMobileFramesHeadingExit, { passive: true });
-        window.addEventListener('resize', syncMobileFramesHeadingExit, { passive: true });
-        syncMobileFramesHeadingExit();
+        window.addEventListener('scroll', syncMobileFramesStack, { passive: true });
+        window.addEventListener('resize', syncMobileFramesStack, { passive: true });
+        syncMobileFramesStack();
       }
     }
 

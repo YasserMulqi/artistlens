@@ -469,46 +469,53 @@ if (isHomePage && isMobileViewport) {
   const projectProgress = document.querySelector<HTMLElement>('.projects-section .rail-progress i');
   const projectsSection = document.querySelector<HTMLElement>('.projects-section');
 
-  if (!reduceMotion && isEnglishMobileHome && projectTiles[0]) {
+  if (!reduceMotion && isEnglishMobileHome && projectsSection && projectTiles[0]) {
     const firstProjectTile = projectTiles[0];
-    let isFirstProjectIntroComplete = false;
+    const firstProjectImage = firstProjectTile.querySelector<HTMLElement>('img');
+    let isFirstProjectImageIntroComplete = false;
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    if (!firstProjectTile.classList.contains('first-project-card-revealed')) {
-      gsap.set(firstProjectTile, {
-        scale: 0.8,
+    if (firstProjectImage && !firstProjectImage.classList.contains('first-project-image-revealed')) {
+      gsap.set(firstProjectImage, {
+        scale: 0.82,
         transformOrigin: 'center center',
         force3D: true,
       });
     }
 
-    ScrollTrigger.create({
-      trigger: firstProjectTile,
-      start: () => {
-        const eightyPercentVisible = window.innerHeight - firstProjectTile.offsetHeight * 0.8;
-        return `top ${Math.max(0, eightyPercentVisible)}px`;
-      },
-      invalidateOnRefresh: true,
-      onEnter: (self) => {
-        if (isFirstProjectIntroComplete || firstProjectTile.classList.contains('first-project-card-revealed')) {
-          self.kill();
-          return;
-        }
+    if (firstProjectImage) {
+      const firstProjectImageObserver = new IntersectionObserver(
+        (entries, observer) => {
+          const entry = entries[0];
+          if (!entry?.isIntersecting) return;
 
-        isFirstProjectIntroComplete = true;
-        gsap.to(firstProjectTile, {
-          scale: 1,
-          duration: 0.9,
-          ease: 'power3.out',
-          onComplete: () => {
-            firstProjectTile.classList.add('first-project-card-revealed');
-            gsap.set(firstProjectTile, { scale: 1, clearProps: 'transform' });
-            self.kill();
-          },
-        });
-      },
-    });
+          if (
+            isFirstProjectImageIntroComplete ||
+            firstProjectImage.classList.contains('first-project-image-revealed')
+          ) {
+            observer.disconnect();
+            return;
+          }
+
+          isFirstProjectImageIntroComplete = true;
+          gsap.to(firstProjectImage, {
+            scale: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            onComplete: () => {
+              firstProjectImage.classList.add('first-project-image-revealed');
+              gsap.set(firstProjectImage, { scale: 1, clearProps: 'transform' });
+              observer.disconnect();
+            },
+          });
+        },
+        {
+          threshold: 0.12,
+          rootMargin: '0px 0px -12% 0px',
+        }
+      );
+
+      firstProjectImageObserver.observe(projectsSection);
+    }
   }
 
   if (projectsRail && projectsTrack && projectTiles.length) {

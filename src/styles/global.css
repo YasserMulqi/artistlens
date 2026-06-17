@@ -1858,7 +1858,7 @@ h3 {
     aspect-ratio: 4 / 6;
   }
 
-  .home-page[data-home-lang='en'] .project-tile.first-project-card-revealed {
+  .home-page[data-home-lang='en'] .project-tile img.first-project-image-revealed {
     transform: none;
   }
 

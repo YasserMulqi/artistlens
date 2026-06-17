@@ -499,7 +499,7 @@ if (isHomePage && isMobileViewport) {
           isFirstProjectImageIntroComplete = true;
           gsap.to(firstProjectImage, {
             scale: 1,
-            duration: 1.2,
+            duration: 2,
             ease: 'power3.out',
             onComplete: () => {
               firstProjectImage.classList.add('first-project-image-revealed');

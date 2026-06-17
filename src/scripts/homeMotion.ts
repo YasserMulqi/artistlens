@@ -474,31 +474,39 @@ if (isHomePage && isMobileViewport) {
     let isFirstProjectIntroComplete = false;
 
     gsap.registerPlugin(ScrollTrigger);
-    gsap.set(firstProjectTile, {
-      scale: 0.8,
-      transformOrigin: 'center center',
-      force3D: true,
-    });
 
-    gsap.to(firstProjectTile, {
-      scale: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: firstProjectTile,
-        start: 'top bottom',
-        end: () => {
-          const eightyPercentVisible = window.innerHeight - firstProjectTile.offsetHeight * 0.8;
-          return `top ${Math.max(0, eightyPercentVisible)}px`;
-        },
-        scrub: 0.7,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          if (self.progress >= 1 && !isFirstProjectIntroComplete) {
-            isFirstProjectIntroComplete = true;
+    if (!firstProjectTile.classList.contains('first-project-card-revealed')) {
+      gsap.set(firstProjectTile, {
+        scale: 0.8,
+        transformOrigin: 'center center',
+        force3D: true,
+      });
+    }
+
+    ScrollTrigger.create({
+      trigger: firstProjectTile,
+      start: () => {
+        const eightyPercentVisible = window.innerHeight - firstProjectTile.offsetHeight * 0.8;
+        return `top ${Math.max(0, eightyPercentVisible)}px`;
+      },
+      invalidateOnRefresh: true,
+      onEnter: (self) => {
+        if (isFirstProjectIntroComplete || firstProjectTile.classList.contains('first-project-card-revealed')) {
+          self.kill();
+          return;
+        }
+
+        isFirstProjectIntroComplete = true;
+        gsap.to(firstProjectTile, {
+          scale: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          onComplete: () => {
+            firstProjectTile.classList.add('first-project-card-revealed');
             gsap.set(firstProjectTile, { scale: 1, clearProps: 'transform' });
             self.kill();
-          }
-        },
+          },
+        });
       },
     });
   }

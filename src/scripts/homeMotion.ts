@@ -574,7 +574,7 @@ if (isHomePage && isMobileViewport) {
             const layerStyle = window.getComputedStyle(layer);
             const frameStickyTop = Number.parseFloat(layerStyle.top) || 132;
             const distanceToSticky = Math.max(0, layer.getBoundingClientRect().top - frameStickyTop);
-            const entryGap = 4 * clampProgress(distanceToSticky / 96);
+            const entryGap = 10 * clampProgress(distanceToSticky / 96);
 
             plate.style.setProperty('--mobile-frame-entry-gap', `${entryGap}px`);
           });

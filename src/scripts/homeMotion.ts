@@ -469,6 +469,32 @@ if (isHomePage && isMobileViewport) {
   const projectProgress = document.querySelector<HTMLElement>('.projects-section .rail-progress i');
   const projectsSection = document.querySelector<HTMLElement>('.projects-section');
 
+  if (!reduceMotion && isEnglishMobileHome && projectTiles[0]) {
+    const firstProjectTile = projectTiles[0];
+
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.set(firstProjectTile, {
+      scale: 0.8,
+      transformOrigin: 'center center',
+      force3D: true,
+    });
+
+    gsap.to(firstProjectTile, {
+      scale: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: firstProjectTile,
+        start: 'top bottom',
+        end: () => {
+          const seventyFivePercentVisible = window.innerHeight - firstProjectTile.offsetHeight * 0.75;
+          return `top ${Math.max(0, seventyFivePercentVisible)}px`;
+        },
+        scrub: 0.7,
+        invalidateOnRefresh: true,
+      },
+    });
+  }
+
   if (projectsRail && projectsTrack && projectTiles.length) {
     const updateMobileProjects = () => {
       const maxScroll = Math.max(1, projectsTrack.scrollWidth - projectsRail.clientWidth);

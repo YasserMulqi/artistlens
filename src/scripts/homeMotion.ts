@@ -554,11 +554,7 @@ if (isHomePage && isMobileViewport) {
       const lastFrame = frameLayers[frameLayers.length - 1];
       const incomingFrames = frameLayers
         .slice(1)
-        .map((layer) => ({
-          layer,
-          plate: layer.querySelector<HTMLElement>('.frame-plate'),
-        }))
-        .filter((frame): frame is { layer: HTMLElement; plate: HTMLElement } => Boolean(frame.plate));
+        .map((layer) => ({ layer }));
 
       if ((framesHeading && lastFrame) || incomingFrames.length) {
         const syncMobileFramesStack = () => {
@@ -570,13 +566,15 @@ if (isHomePage && isMobileViewport) {
             framesHeading.style.setProperty('--mobile-frames-header-y', `${exitY}px`);
           }
 
-          incomingFrames.forEach(({ layer, plate }) => {
+          incomingFrames.forEach(({ layer }) => {
             const layerStyle = window.getComputedStyle(layer);
             const frameStickyTop = Number.parseFloat(layerStyle.top) || 132;
-            const distanceToSticky = Math.max(0, layer.getBoundingClientRect().top - frameStickyTop);
-            const entryGap = 10 * clampProgress(distanceToSticky / 96);
+            const currentEntryGap = Number.parseFloat(layerStyle.getPropertyValue('--mobile-frame-entry-gap')) || 0;
+            const baseLayerTop = layer.getBoundingClientRect().top - currentEntryGap;
+            const distanceToSticky = Math.max(0, baseLayerTop - frameStickyTop);
+            const entryGap = 10 * clampProgress(distanceToSticky / 160);
 
-            plate.style.setProperty('--mobile-frame-entry-gap', `${entryGap}px`);
+            layer.style.setProperty('--mobile-frame-entry-gap', `${entryGap}px`);
           });
         };
 

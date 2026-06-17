@@ -2218,7 +2218,7 @@ h3 {
   }
 
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(n + 2) {
-    margin-block-start: clamp(28px, 5svh, 40px);
+    margin-block-start: clamp(52px, 7svh, 64px);
   }
 
   .home-page[data-home-lang='en'] .frames-deck > .frame-layer:nth-child(1) {
